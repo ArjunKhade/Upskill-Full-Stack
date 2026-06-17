@@ -1,0 +1,1078 @@
+1. What is Angular, and why is it used for web development?
+Angular is a TypeScript-based front-end framework developed by Google. It's used to build scalable, maintainable single-page applications (SPAs).
+Why it's used:
+  Component-based architecture – Promotes reusability and clean separation of concerns.
+  Two-way data binding – Simplifies DOM and model synchronization.
+  Dependency injection – Enhances testability and modular design.
+  Routing – Supports navigation, lazy loading, and guards.
+  Built-in tooling (CLI) – Speeds up development and enforces best practices.
+  AOT compilation – Improves performance by compiling ahead of time.
+  RxJS integration – Enables reactive, asynchronous data handling.
+  It’s especially strong in enterprise-level applications due to its structure and long-term support.
+2. How does Angular differ from AngularJS?
+Angular (2+) is a complete rewrite of AngularJS. Key differences:
+  1. Language:
+   - AngularJS: JavaScript
+   - Angular: TypeScript (offers strong typing and OOP features)
+  2. Architecture:
+   - AngularJS: MVC-based
+   - Angular: Component-based
+  3. Performance:
+   - AngularJS: Uses digest cycle, can be slow in large apps
+   - Angular: Faster with AOT compilation and better change detection
+  4. Mobile Support:
+   - AngularJS: Not optimized for mobile
+   - Angular: Mobile-first design
+  5. Dependency Injection:
+   - AngularJS: Basic DI
+   - Angular: More powerful and hierarchical DI
+  6. Tooling:
+   - AngularJS: Manual setup
+   - Angular: Uses CLI, RxJS, TypeScript, Webpack, etc.
+  7. Routing & Modularity:
+   - AngularJS: Basic routing, limited modularity
+   - Angular: Advanced routing with lazy loading and feature modules
+3. What is TypeScript, and why is it used in Angular?
+TypeScript is a superset of JavaScript developed by Microsoft. It adds static typing, interfaces, generics, and modern ES features.
+Why Angular uses TypeScript:
+  1. Static Typing – Catches errors at compile time, improving code quality.
+  2. Intellisense Support – Better tooling and autocompletion in IDEs.
+  3. OOP Features – Supports classes, interfaces, and access modifiers.
+  4. Maintainability – Helps manage large codebases effectively.
+  5. Early Error Detection – Improves developer productivity and reduces runtime issues.
+  6. Better Refactoring – Safer and easier code refactors in large projects.
+4. Explain the component-based architecture of Angular?
+Angular follows a component-based architecture, where the UI is built using independent, reusable components.
+Key Points:
+  1. Component = Template + Class + Metadata (via @Component decorator).
+  2. Each component controls a section of the UI (called a view).
+  3. Components are organized in a tree structure – AppComponent is the root.
+  4. Promotes reusability, testability, and separation of concerns.
+  5. Encourages modular design – each feature can be built as a self-contained module.
+  6. Components communicate using:
+   - @Input() – to receive data from parent.
+   - @Output() – to send events to parent.
+  7. Supports encapsulation via ViewEncapsulation and scoped styles.
+5. What is the purpose of the angular.json file in an Angular project?
+The angular.json file is the workspace configuration file for Angular CLI projects.
+Key Purposes:
+  1. Defines project structure and settings.
+  2. Configures build, serve, test, and lint options.
+  3. Specifies file paths for:
+   - Source files (main.ts, styles, polyfills, etc.)
+   - Assets and global styles
+  4. Manages configurations for different environments (development, production).
+  5. Allows customization of output directories and optimization settings.
+  6. Supports multiple projects (apps and libraries) in a single workspace.
+6. How does an Angular application bootstrap?
+Bootstrapping is the process of initializing the Angular application.
+Steps:
+  1. Angular looks for the main.ts file as the entry point.
+  2. main.ts calls platformBrowserDynamic().bootstrapModule(AppModule) to bootstrap the root module.
+  3. AppModule is the root module, defined with @NgModule.
+  4. AppModule declares AppComponent in the bootstrap array.
+  5. Angular creates and inserts AppComponent into index.html using the selector (e.g., <app-root>).
+7. What is the role of the main.ts file in Angular?
+The main.ts file is the **entry point** of an Angular application.
+Key roles:
+  1. It **boots up** the Angular application by calling platformBrowserDynamic().bootstrapModule(AppModule).
+  2. It tells Angular which root module (AppModule) to load.
+  3. It handles **environment-specific setups**, such as enabling production mode.
+  4. It’s responsible for starting the Angular **runtime** and rendering the app in the browser.
+8. What are NgModules, and why are they used?
+NgModules are the core organizational units in Angular that group related components, directives, pipes, and services together.
+From my experience:
+  1. They help break down large apps into smaller, manageable, and reusable feature modules, improving maintainability and scalability.
+  2. Each NgModule, defined with the @NgModule decorator, declares what it contains, what it imports from other modules, and what it exports for use elsewhere.
+  3. They control service scope through providers, enabling lazy loading and efficient dependency injection.
+  4. The root module bootstraps the app by specifying the root component.
+  5. NgModules support lazy loading, which allows loading parts of the app only when needed, improving startup performance.
+  6. They encapsulate features, promoting separation of concerns and better team collaboration.
+9. Explain the difference between a module and a component in Angular.
+A module is a container that groups related components, directives, pipes, and services. A component is a building block of the UI that controls a part of the screen.
+Modules use @NgModule, components use @Component. Components must be declared in a module to work.
+10. What is the purpose of the @NgModule decorator?
+The @NgModule decorator defines a module’s metadata. It tells Angular how to compile and run the module by declaring components, importing other modules, providing services, and specifying the bootstrap component.
+11. How does Angular handle dependency injection?
+Angular has a built-in dependency injection system. It automatically provides class instances (like services) to components or other services using constructors. Providers are registered in modules, components, or services using the 'providers' array.
+12. What is the difference between a provider and an injectable in Angular?
+@Injectable marks a class as available for dependency injection. The 'providedIn' property (commonly set to 'root') tells Angular where to register the service. A provider defines how and where the service should be created. So, @Injectable makes a class injectable, and a provider controls its instantiation.
+13. Explain the concept of Single Page Applications (SPAs) in Angular?
+SPAs load a single HTML page and dynamically update the content without reloading the page. Angular uses its router to switch views and update the URL, while keeping the app state in memory. This results in faster navigation and a smoother user experience.
+14. What is the Angular CLI, and what are its common commands?
+Angular CLI is a command-line tool to create, build, test, and manage Angular projects. It automates project setup and common tasks.
+Common commands:
+- ng new        → Create a new Angular project
+- ng serve      → Run the app locally
+- ng build      → Build the app for production
+- ng generate   → Generate components, services, etc.
+- ng test       → Run unit tests
+- ng lint       → Run code linter
+15. What is the difference between JIT and AOT compilation in Angular?
+JIT (Just-in-Time) compiles the app in the browser at runtime, which is slower and used during development. AOT (Ahead-of-Time) compiles the app during build time, producing faster startup and smaller bundles for production.
+16. Why is AOT compilation preferred for production builds?
+AOT compiles the app before runtime, which results in faster rendering, smaller bundle sizes, better security by detecting template errors early, and improved overall performance.
+17. How does Angular differ from React or Vue in terms of architecture?
+Angular is a full-featured MVC framework with built-in routing, state management, and dependency injection. React and Vue are primarily UI libraries focused on the view layer, requiring additional libraries for routing and state. Angular uses TypeScript and a component-based architecture, while React and Vue are more flexible and lightweight.
+18. what is the use of environment.ts file?
+The environment.ts file stores environment-specific settings like API URLs or feature flags. Angular uses different versions (e.g., environment.prod.ts) to configure the app for development, production, or testing during build time.
+19. What is a component in Angular, and how is it defined?
+
+A component controls a part of the UI. It’s defined using the @Component decorator, which specifies the selector, template, and styles. The component class contains the logic and data binding for the view.
+20. What is the @Component decorator, and what are its key properties?
+ The @Component decorator marks a class as an Angular component and provides metadata. Key properties include:
+- selector: the HTML tag to use the component
+- templateUrl or template: the HTML view
+- styleUrls or styles: component-specific CSS
+- providers: services scoped to the component
+21. Explain the role of templates in Angular components.
+Templates define the HTML view of a component. They determine what gets rendered on the screen and bind the component’s data and events to the UI using Angular’s template syntax.
+22. What is the difference between template and templateUrl in a component?
+- `template` defines the inline HTML directly inside the component decorator.
+- `templateUrl` points to an external HTML file for the component’s template.
+23. How does Angular handle component lifecycle hooks?
+ Angular provides lifecycle hook methods that run at specific stages of a component’s life. Common hooks include:
+- ngOnInit(): runs after component initialization
+- ngOnChanges(): runs on input property changes
+- ngOnDestroy(): runs before component is removed
+24. List all Angular lifecycle hooks and their purposes?
+- ngOnChanges(): called when input properties change
+- ngOnInit(): called once after first ngOnChanges, used for init logic
+- ngDoCheck(): custom change detection
+- ngAfterContentInit(): after content projection (ng-content) is done
+- ngAfterContentChecked(): after projected content is checked
+- ngAfterViewInit(): after component’s view is initialized
+- ngAfterViewChecked(): after the view is checked by change detection
+- ngOnDestroy(): before component is destroyed, used for cleanup
+25. What is the difference between ngOnInit and constructor in a component?
+The constructor is used to inject dependencies and set up basic class initialization. ngOnInit is a lifecycle hook called after the component is initialized, used for logic like data fetching. Avoid putting heavy logic inside the constructor.
+26. How can you pass data to a component using @Input?
+A: Use the @Input() decorator to define a property in the child component. Then bind a value to it from the parent using property binding.
+Example:
+  Child: @Input() title: string;
+  Parent: <app-child [title]="parentTitle"></app-child>
+27. What is the purpose of @Output and EventEmitter in Angular?
+@Output allows a child component to send data to its parent. It uses EventEmitter to emit custom events.
+Example:
+  Child: @Output() clicked = new EventEmitter<string>();
+  this.clicked.emit('Hello');
+  Parent: <app-child (clicked)="handleEvent($event)"></app-child>
+28. How do you create a dynamic component in Angular?
+Use ViewContainerRef and ComponentFactoryResolver or ComponentFactory (in Angular 13+):
+  1. Add a container with @ViewChild:
+  @ViewChild('container', { read: ViewContainerRef }) container: ViewContainerRef;
+  2. Create and insert the component:
+  const compRef = this.container.createComponent(YourComponent);
+  In Angular 13+, you can directly use:
+  this.container.createComponent(YourComponent);
+29. What is ViewEncapsulation in Angular, and what are its types?
+ViewEncapsulation controls how styles defined in a component affect the DOM.
+Types:
+  1. Emulated (default) – Angular scopes styles to the component using attribute selectors.
+  2. None – Styles are global and not scoped.
+  3. ShadowDom – Uses native Shadow DOM to encapsulate styles strictly.
+It helps avoid style conflicts between components.
+30. How does Angular handle component communication?
+- Parent to child: @Input()
+- Child to parent: @Output() with EventEmitter
+- Between siblings or distant components: shared service with RxJS Subjects/BehaviorSubjects
+- Using template references or ViewChild/ViewChildren for direct interaction
+31. What is the difference between ViewChild and ViewChildren?
+- ViewChild gets a reference to a single child element or component in the template.
+- ViewChildren gets references to multiple child elements or components as a QueryList.
+Use ViewChild for one element, ViewChildren for multiple.
+32. How do you access a DOM element in an Angular component?
+Use @ViewChild with a template reference variable to get the element or component instance.
+Example:
+  Template: <div #myDiv></div>
+  Component: @ViewChild('myDiv') myDivElement: ElementRef;
+Then access native element via myDivElement.nativeElement.
+33. What is Content Projection in Angular, and how is it implemented?
+Content Projection lets you insert external content into a component’s template using <ng-content>.
+Example:
+  Parent template:
+  <app-card>
+    <p>Projected content here</p>
+  </app-card>
+  Card component template:
+  <div class="card">
+    <ng-content></ng-content>
+  </div>
+34. Explain the use of ng-content in Angular components?
+<ng-content> acts as a placeholder in a component’s template where external content is inserted. It enables content projection, allowing parent components to pass HTML or components into child component templates.
+35. How can you style a component in Angular?
+You can style a component by:
+- Adding CSS in the component’s `styleUrls` or `styles` metadata.
+- Using inline styles inside the template.
+- Using global styles in styles.css (affects whole app).
+- Applying CSS classes and Angular’s ViewEncapsulation controls style scope.
+36. How do you handle conditional rendering in Angular templates? 
+Use structural directives like *ngIf to conditionally include or exclude elements in the DOM.
+Example:
+  <div *ngIf="isVisible">Content shown only if isVisible is true</div>
+37. What is the purpose of the *ngIf directive in Angular?
+*ngIf conditionally adds or removes elements from the DOM based on a boolean expression, improving performance by not rendering unnecessary elements.
+38. How would you handle a scenario where a component’s template is rendering outdated data due to asynchronous updates?
+I’d ensure Angular’s change detection runs after async updates by:
+- Using Observables with the async pipe to automatically update the view.
+- Manually triggering change detection with ChangeDetectorRef.detectChanges() if needed.
+- Making sure data updates happen inside Angular zones (NgZone) to trigger change detection.
+39. Imagine a component needs to display a large dataset (e.g., 10,000 rows). How would you optimize its rendering performance?
+ I would:
+- Use virtual scrolling (e.g., Angular CDK’s *cdkVirtualFor) to render only visible rows.
+- Paginate the data to limit items per view.
+- Use trackBy with *ngFor to reduce DOM re-renders.
+- Avoid unnecessary change detection using OnPush strategy.
+40. If a parent component’s @Input changes frequently, how would you prevent unnecessary re-renders in a child component?
+Use ChangeDetectionStrategy.OnPush in the child component to update only on input reference changes. Also, pass immutable data and avoid binding new object/array instances on every change.
+41. Suppose you have a component that renders a complex form, but users complain it’s slow. How would you diagnose and fix the issue?
+  1. Profile the app using Chrome DevTools and Angular DevTools to identify slow change detection or re-renders.
+  2. Use OnPush change detection to minimize unnecessary DOM updates.
+  3. Break the form into smaller lazy-loaded or dynamic components.
+  4. Debounce valueChanges if reacting to input events.
+  5. Use trackBy with *ngFor for repeated fields.
+  6. Optimize validation logic and avoid expensive computations in the template.
+42. How would you implement a component that dynamically switches between multiple layouts based on user input?
+  1. Use an *ngIf or *ngSwitch directive to conditionally render layouts in the template.
+  2. Alternatively, load layouts dynamically using ViewContainerRef and createComponent().
+  3. Store the selected layout type in a variable (e.g., layoutType) and change it on user input.
+  4. For large layouts, consider lazy loading them via dynamic imports for performance.
+  Example:
+  <ng-container [ngSwitch]="layoutType">
+    <app-grid-layout *ngSwitchCase="'grid'"></app-grid-layout>
+    <app-list-layout *ngSwitchCase="'list'"></app-list-layout>
+  </ng-container>
+43. In a scenario where a component’s ViewChild is undefined during ngOnInit, how would you troubleshoot and resolve it?
+  1. Understand that @ViewChild is only available after the view is initialized — so access it in ngAfterViewInit, not ngOnInit.
+  2. Check that the template reference exists and is correctly spelled.
+  3. Ensure the queried element/component is not inside an *ngIf — if so, use { static: false }.
+  4. Use { static: true } only if the element is always present at compile time.
+  Example:
+  @ViewChild('myRef', { static: false }) myRef!: ElementRef;
+44. How would you create a reusable modal component that can display different content based on the caller?
+  1. Create a modal component with an <ng-content> or use ViewContainerRef to inject dynamic content.
+  2. Use a shared service to open/close the modal from anywhere.
+  3. Pass data or content using @Input() or a template reference with <ng-template>.
+  4. Optionally, use ContentChild or ComponentFactoryResolver (for older versions) to load dynamic components.
+  Example usage:
+  <app-modal>
+  <ng-template let-data>
+	  <p>{{ data.message }}</p>
+  </ng-template>
+  </app-modal>
+45. If a component’s template throws a runtime error due to a missing property, how would you debug and prevent this in the future?
+  1. Check the component class to ensure the property is declared and initialized.
+  2. Use optional chaining (e.g., user?.name) in the template to avoid null/undefined access.
+  3. Use Angular's strict mode and TypeScript strict typing to catch these at compile time.
+  4. Add defensive checks like *ngIf to guard template rendering until data is ready.
+  5. Monitor browser console and stack trace to locate the exact error.
+46. Suppose you need to share state between two sibling components without a parent-child relationship. What approach would you take?
+  1. Create a shared service to hold the common state.
+  2. Use RxJS Subjects or BehaviorSubjects in the service to emit and subscribe to data.
+  3. Inject the service in both sibling components to communicate.
+  4. Optionally use NgRx or a global state management solution for larger apps.
+47. How would you handle a scenario where a component’s lifecycle hook is called unexpectedly multiple times?
+  1. Check if the component is being recreated due to routing or structural directives (*ngIf, *ngFor).
+  2. Verify if change detection strategy is causing repeated updates.
+  3. Use OnPush change detection to limit unnecessary checks.
+  4. Look for nested or recursive component usage causing multiple instantiations.
+  5. Use console logs or Angular DevTools to trace component creation and lifecycle calls.
+48. Imagine you’re tasked with creating a drag-and-drop interface in Angular. How would you implement it?
+  1. Use Angular CDK DragDropModule for built-in drag-and-drop support.
+  2. Import DragDropModule in the app module.
+  3. Use directives like cdkDrag on draggable elements and cdkDropList on containers.
+  4. Handle the drop event to update data and UI accordingly.
+  Example:
+  <div cdkDropList (cdkDropListDropped)="drop($event)">
+    <div *ngFor="let item of items" cdkDrag>{{ item }}</div>
+  </div>
+49. If a component’s template is deeply nested, causing performance issues, how would you refactor it?
+  1. Break the template into smaller, reusable child components.
+  2. Use OnPush change detection for those child components.
+  3. Flatten nested *ngIf/*ngFor structures where possible.
+  4. Move complex logic from template to component class.
+  5. Use lazy loading or dynamic components for rarely used parts.
+50. How would you implement a component that supports both light and dark themes dynamically?
+  1. Define CSS variables or classes for light and dark themes.
+  2. Add a theme toggle in the component or a global service to switch themes.
+  3. Dynamically add/remove a CSS class (e.g., 'dark-theme') on the root or component element.
+  4. Use Angular’s Renderer2 or directly manipulate document.body.classList.
+  5. Optionally store the user preference in localStorage for persistence.
+  Example:
+  document.body.classList.toggle('dark-theme', isDarkTheme);
+51. Suppose a user reports that a component’s UI is not updating after a state change. How would you investigate?
+  1. Verify if the state change actually happened (check variables in debugger).
+  2. Check if the component uses ChangeDetectionStrategy.OnPush and if the input references changed.
+  3. Ensure change detection is triggered (e.g., not running code outside Angular zone).
+  4. Use ChangeDetectorRef.detectChanges() to manually trigger update if needed.
+  5. Confirm async operations update state inside Angular zone.
+52. How would you handle a scenario where a component needs to render content conditionally based on user permissions?
+  1. Use a permission service to get user roles/permissions.
+  2. In the template, use *ngIf to conditionally render elements based on permissions.
+  3. Alternatively, create structural directives (e.g., *hasPermission) for cleaner templates.
+  4. Use route guards to protect entire routes if needed.
+53. What are directives in Angular, and how are they used?
+Directives are classes that add behavior to elements in Angular. 
+Types:
+  1. Component – a directive with a template.
+  2. Structural – changes DOM layout (e.g., *ngIf, *ngFor).
+  3. Attribute – changes appearance/behavior (e.g., ngClass, custom highlight).
+54. What is the difference between a component directive and an attribute directive?
+- Component directive: Has a template, defines a view (e.g., <app-user></app-user>).
+- Attribute directive: Alters behavior or style of existing elements (e.g., [ngClass], custom highlight).
+55. Name some built-in Angular directives?
+Structural Directives:
+- *ngIf
+- *ngFor
+- *ngSwitch, *ngSwitchCase, *ngSwitchDefault
+
+Attribute Directives:
+- [ngClass]
+- [ngStyle]
+- [ngModel]
+56. How do you create a custom directive in Angular?
+  1. Use Angular CLI: `ng generate directive myDirective`
+  2. Implement logic in the directive class using @Directive decorator.
+  3. Apply the directive to elements using its selector.
+  Example:
+  @Directive({
+    selector: '[appHighlight]'
+  })
+  export class HighlightDirective {
+    constructor(el: ElementRef) {
+      el.nativeElement.style.backgroundColor = 'yellow';
+    }
+  }
+57. What is the purpose of the *ngFor directive?
+*ngFor is a structural directive used to loop over a collection and render a template for each item.
+Example:
+  <li *ngFor="let item of items">{{ item }}</li>
+58. Explain the difference between *ngFor and ng-repeat?
+  - *ngFor is used in Angular (2+), while ng-repeat was used in AngularJS (1.x).
+  - *ngFor uses modern Angular syntax and supports features like trackBy for performance.
+  - ng-repeat uses older AngularJS expression syntax and digest cycle.
+  *ngFor (Angular 2+):
+  <li *ngFor="let item of items">{{ item }}</li>
+  ng-repeat (AngularJS):
+  <li ng-repeat="item in items">{{ item }}</li>
+59. How does the ngClass directive work? 
+ngClass is an attribute directive used to add or remove CSS classes dynamically based on conditions.
+Usage examples:
+  <!-- Add a single class -->
+  <div [ngClass]="'active'"></div>
+  <!-- Add multiple classes conditionally -->
+  <div [ngClass]="{ 'active': isActive, 'disabled': isDisabled }"></div>
+  <!-- Apply array of classes -->
+  <div [ngClass]="['class1', 'class2']"></div>
+60. What is the purpose of the ngStyle directive?
+ngStyle is an attribute directive used to set inline CSS styles dynamically.
+Example:
+  <div [ngStyle]="{ 'color': isActive ? 'green' : 'red', 'font-size': '16px' }">
+    Styled Text
+  </div>
+61. How do you create a structural directive in Angular?
+  1. Use `ng generate directive myDirective` or create manually.
+  2. Use @Directive decorator with a selector (e.g., *appIf).
+  3. Inject TemplateRef and ViewContainerRef.
+  4. Use logic to create/destroy embedded views.
+  Example:
+  @Directive({
+    selector: '[appIf]'
+  })
+  export class AppIfDirective {
+    constructor(
+      private templateRef: TemplateRef<any>,
+      private viewContainer: ViewContainerRef
+    ) {}
+  
+    @Input() set appIf(condition: boolean) {
+      this.viewContainer.clear();
+      if (condition) {
+        this.viewContainer.createEmbeddedView(this.templateRef);
+      }
+    }
+  }
+62. What are pipes in Angular, and how are they used?
+  Pipes transform data in templates.
+  Usage:
+  {{ value | pipeName }}
+  Examples:
+  - date → {{ today | date:'short' }}
+  - uppercase → {{ name | uppercase }}
+  - custom → {{ price | currencyFormat }}
+  You can also chain pipes:
+  {{ value | pipe1 | pipe2 }}
+63. Name some built-in Angular pipes?
+  - DatePipe (date)
+  - UpperCasePipe (uppercase)
+  - LowerCasePipe (lowercase)
+  - CurrencyPipe (currency)
+  - DecimalPipe (number)
+  - PercentPipe (percent)
+  - JsonPipe (json)
+  - SlicePipe (slice)
+64. How do you create a custom pipe in Angular?
+  1. Use Angular CLI: `ng generate pipe myPipe`
+  2. Implement `PipeTransform` interface.
+  3. Define transformation logic inside `transform` method.
+  4. Add @Pipe decorator with a unique name.
+  Example:
+  import { Pipe, PipeTransform } from '@angular/core';
+  @Pipe({ name: 'reverseStr' })
+  export class ReverseStrPipe implements PipeTransform {
+    transform(value: string): string {
+      return value.split('').reverse().join('');
+    }
+  }
+65. What is the difference between pure and impure pipes?
+  - Pure pipes run only when input values change (by reference). They are efficient.
+  - Impure pipes run on every change detection cycle, even if inputs don’t change. Use only when necessary.
+  In @Pipe decorator:
+  @Pipe({ name: 'myPipe', pure: true }) // default
+  @Pipe({ name: 'myPipe', pure: false }) // impure
+66. How does the async pipe work in Angular?
+  - It subscribes to Observables or Promises automatically.
+  - It unwraps the emitted values and updates the template.
+  - It unsubscribes automatically to avoid memory leaks.
+  Usage example:
+  {{ data$ | async }}
+  Where data$ is an Observable or Promise.
+67. How can you chain multiple pipes in Angular?
+You apply pipes one after another using the pipe (|) symbol.
+Example:
+  {{ value | pipe1 | pipe2 | pipe3 }}
+  The output of pipe1 becomes input for pipe2, and so on.
+68. What is the purpose of the slice pipe?
+  - The slice pipe extracts a subset of elements from an array or characters from a string.
+  - Syntax: `{{ items | slice:start:end }}`
+  - Works like JavaScript’s slice method (start inclusive, end exclusive).
+  Example:
+  {{ 'Angular' | slice:0:3 }}  <!-- Outputs 'Ang' -->
+  {{ [1,2,3,4] | slice:1:3 }} <!-- Outputs [2,3] -->
+69. How do you pass parameters to a custom pipe?
+  Pass parameters after the pipe name, separated by colons.
+  Example:
+  {{ value | myPipe:param1:param2 }}
+  In custom pipe:
+  transform(value: any, param1: any, param2: any) {
+    // use params here
+70. How do you debug a custom directive or pipe in Angular?
+  1. Use console.log inside directive/pipe methods to track execution and values.
+  2. Use Angular DevTools to inspect component/directive trees.
+  3. Set breakpoints in your IDE in directive or pipe code.
+  4. Check lifecycle hooks (for directives) to verify behavior.
+  5. Write unit tests to catch issues early.
+71. How would you create a custom directive to highlight table rows based on dynamic conditions (e.g., value thresholds)?
+  1. Create directive using CLI: `ng generate directive highlightRow`.
+  2. Use @Input to accept the row value.
+  3. Apply styles based on threshold condition.
+  Example:
+  @Directive({
+    selector: '[appHighlightRow]'
+  })
+  export class HighlightRowDirective {
+    @Input('appHighlightRow') value: number = 0;
+  
+    constructor(private el: ElementRef) {}
+  
+    ngOnChanges() {
+      if (this.value > 100) {
+        this.el.nativeElement.style.backgroundColor = 'lightgreen';
+      } else if (this.value < 0) {
+        this.el.nativeElement.style.backgroundColor = 'lightcoral';
+      } else {
+        this.el.nativeElement.style.backgroundColor = 'white';
+      }
+    }
+  }
+  <tr *ngFor="let row of rows" [appHighlightRow]="row.amount">
+	<td>{{ row.amount }}</td>
+  </tr>
+72. If a custom directive is not applying changes to the DOM as expected, how would you debug it?
+  1. Verify the directive's selector is applied correctly in the template.
+  2. Check if @Input values are received correctly (use console.log).
+  3. Confirm lifecycle hooks like ngOnChanges or ngAfterViewInit are triggering.
+  4. Inspect the DOM to see if styles or logic are applied.
+  5. Ensure the directive is declared in the correct NgModule.
+  6. Use breakpoints or logs to trace code execution inside the directive.
+73. Suppose you need a directive to restrict input to only numbers in a text field. How would you implement it?
+  1. Create directive using CLI: `ng generate directive numberOnly`.
+  2. Listen to input or keypress events.
+  3. Filter out non-numeric characters.
+  
+  Example:
+  
+  @Directive({
+    selector: '[appNumberOnly]'
+  })
+  export class NumberOnlyDirective {
+    constructor(private el: ElementRef) {}
+  
+    @HostListener('input', ['$event']) onInputChange(event: Event) {
+      const input = event.target as HTMLInputElement;
+      input.value = input.value.replace(/[^0-9]/g, '');
+    }
+  }
+  
+  Usage in template:
+  <input type="text" appNumberOnly />
+74. How would you create a pipe to format a dataset (e.g., currency conversion) based on user-selected locale?
+  1. Create a custom pipe that accepts value, currency code, and locale.
+  2. Use Angular’s built-in CurrencyPipe internally.
+  3. Inject CurrencyPipe and format the value accordingly.
+  
+  Example:
+  
+  import { Pipe, PipeTransform } from '@angular/core';
+  import { CurrencyPipe } from '@angular/common';
+  
+  @Pipe({ name: 'localizedCurrency' })
+  export class LocalizedCurrencyPipe implements PipeTransform {
+    constructor(private currencyPipe: CurrencyPipe) {}
+  
+    transform(value: number, currencyCode: string, locale: string): string | null {
+      return this.currencyPipe.transform(value, currencyCode, 'symbol', '1.2-2', locale);
+    }
+  }
+  
+  Usage:
+  {{ amount | localizedCurrency:'EUR':'de-DE' }}
+75. In a scenario where an impure pipe is causing performance issues, how would you refactor it to be pure?
+  1. Make sure the pipe is stateless and only depends on input arguments.
+  2. Avoid modifying external objects inside the pipe.
+  3. Use immutable data structures to trigger Angular change detection properly.
+  4. Declare pipe as pure (default): @Pipe({ name: 'myPipe', pure: true })
+  5. If needed, move complex logic outside the pipe and pass pre-processed data.
+  
+  Example Fix:
+  Before (impure, modifies data):
+  @Pipe({ name: 'sortData', pure: false })
+  transform(data: any[]) { ... }
+  
+  After (pure, uses spread operator):
+  @Pipe({ name: 'sortData' }) // pure: true by default
+  transform(data: any[]): any[] {
+    return [...data].sort((a, b) => a.value - b.value);
+  }
+76. If a structural directive like *ngFor is rendering incorrect data due to an array mutation, how would you fix it?
+  1. Avoid mutating the original array (e.g., push, splice).
+  2. Use immutable operations: [...array, newItem] or array.filter().
+  3. Let Angular detect changes by assigning a new array reference.
+  4. Use trackBy function in *ngFor to optimize rendering.
+  
+  Example:
+  <tr *ngFor="let item of items; trackBy: trackById">
+  
+  trackById(index: number, item: any) {
+    return item.id;
+  }
+77. How would you implement a directive to add tooltips dynamically based on element content?
+  1. Create directive: `ng generate directive dynamicTooltip`
+  2. Use HostListener to handle mouse events.
+  3. Set tooltip using title attribute or a custom tooltip element.
+  
+  Example:
+  
+  import { Directive, ElementRef, HostListener, Input, Renderer2 } from '@angular/core';
+  
+  @Directive({
+    selector: '[appDynamicTooltip]'
+  })
+  export class DynamicTooltipDirective {
+    @Input('appDynamicTooltip') tooltipText: string = '';
+  
+    constructor(private el: ElementRef, private renderer: Renderer2) {}
+  
+    @HostListener('mouseenter') onMouseEnter() {
+      this.renderer.setAttribute(this.el.nativeElement, 'title', this.tooltipText || this.el.nativeElement.textContent.trim());
+    }
+  
+    @HostListener('mouseleave') onMouseLeave() {
+      this.renderer.removeAttribute(this.el.nativeElement, 'title');
+    }
+  }
+  
+  Usage in template:
+  <span appDynamicTooltip="Custom Tooltip">Hover me</span>
+  <!-- Or without input, fallback to element text -->
+  <span appDynamicTooltip>Hover me</span>
+78. Suppose a custom pipe is not updating when its input changes. What could be the issue, and how would you resolve it?
+  Issue:
+  - The pipe is marked as pure (default), so it only updates when the reference changes.
+  - Mutating the input object/array directly won't trigger re-evaluation.
+  
+  Resolution:
+  1. Ensure you're not mutating the input directly. Use immutable updates.
+  2. Pass a new object/array reference to trigger change detection.
+  3. If mutation is unavoidable, make the pipe impure:
+     @Pipe({ name: 'myPipe', pure: false })
+79. How would you create a directive to handle click events outside a component (e.g., closing a dropdown)?
+  1. Listen for document click events.
+  2. Check if the clicked target is outside the host element.
+  3. Emit an event or call a method to close the element.
+  
+  Example:
+  
+  import {
+    Directive,
+    ElementRef,
+    EventEmitter,
+    HostListener,
+    Output
+  } from '@angular/core';
+  
+  @Directive({
+    selector: '[appClickOutside]'
+  })
+  export class ClickOutsideDirective {
+    @Output() appClickOutside = new EventEmitter<void>();
+  
+    constructor(private el: ElementRef) {}
+  
+    @HostListener('document:click', ['$event.target'])
+    onClick(target: HTMLElement) {
+      const clickedInside = this.el.nativeElement.contains(target);
+      if (!clickedInside) {
+        this.appClickOutside.emit();
+      }
+    }
+  }
+  
+  Usage in template:
+  <div appClickOutside (appClickOutside)="closeDropdown()">
+    <!-- dropdown content -->
+  </div>
+80. If a team member overuses pipes in a template, causing slow rendering, how would you optimize it?
+  1. Move complex or repetitive pipe logic to the component and bind to a variable.
+  2. Use pure pipes only for static or reference-changing data.
+  3. Avoid impure pipes unless absolutely necessary.
+  4. Cache the pipe result if data doesn’t change often.
+  5. Use memoization techniques for heavy computations.
+  
+  Example Optimization:
+  Before: {{ getPrice(item) | customPipe | anotherPipe }}
+  
+  After:
+  Component: this.finalPrice = this.anotherPipe.transform(this.customPipe.transform(this.getPrice(item)));
+  Template: {{ finalPrice }}
+Q81: What is data binding in Angular, and what are its types?
+A: Data binding connects component logic to the UI. Types:
+- Interpolation
+- Property binding
+- Event binding
+- Two-way binding
+
+Q82: Explain one-way data binding in Angular.
+A: Data flows from component to view (interpolation/property binding) or from view to component (event binding).
+
+Q83: How does two-way data binding work in Angular?
+A: Uses [(ngModel)] to sync data between component and view in both directions.
+
+Q84: What is interpolation in Angular, and how is it used?
+A: Syntax: {{ expression }}. Binds component data to the template.
+
+Q85: What is property binding, and how does it differ from interpolation?
+A: [property]="expression" binds data to HTML properties. Interpolation is limited to text.
+
+Q86: Explain event binding in Angular with an example.
+A: Syntax: (event)="handler()"
+Example: <button (click)="onClick()">Click</button>
+
+Q87: How does Angular handle two-way binding with ngModel?
+A: [(ngModel)] combines [value] and (input). Requires FormsModule.
+
+Q88: What are Reactive Forms in Angular?
+A: Forms driven by code using FormGroup, FormControl, FormBuilder for dynamic and scalable forms.
+
+Q89: What is the difference between Template-driven and Reactive Forms?
+A: Template-driven: defined in HTML, simpler.
+Reactive: defined in TypeScript, better for complex logic.
+
+Q90: How do you create a form control in Reactive Forms?
+A:
+this.name = new FormControl('');
+or using FormBuilder: this.form = fb.group({ name: [''] });
+
+Q91: What is FormGroup and FormControl in Angular?
+A: FormGroup: a group of controls.
+FormControl: tracks value and validity of a single field.
+
+Q92: How do you validate forms in Angular?
+A: Use built-in or custom validators in FormControl or FormBuilder.
+
+Q93: What are the common form validators in Angular?
+A: Validators.required, Validators.minLength, Validators.maxLength, Validators.email, etc.
+
+Q94: How do you create a custom validator in Angular?
+A:
+function customValidator(control: AbstractControl) {
+  return control.value === 'admin' ? { invalidName: true } : null;
+}
+
+Q95: What is the purpose of FormBuilder in Angular?
+A: Simplifies creation of FormGroup/FormControl with less code.
+
+Q96: How do you handle form submission in Angular?
+A:
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+onSubmit() { console.log(this.form.value); }
+
+Q97: What is the difference between dirty and pristine states in a form?
+A: dirty means the form/control value has changed since it was loaded. pristine means it hasn't changed.
+
+Q98: How do you reset a form in Angular?
+A: Use form.reset() to clear the form and set its state back to pristine.
+
+Q99: What is the purpose of the ngForm directive?
+ngForm creates a top-level FormGroup instance and binds it to the form in template-driven forms. It tracks form state and provides access to validity, controls, and submission status.
+
+Q100: How do you handle cross-field validation in Angular forms?
+Cross-field validation is handled by attaching a custom validator to a FormGroup. The validator compares values of multiple controls.
+  const form = this.fb.group({
+    password: [''],
+    confirmPassword: ['']
+  }, { validators: this.passwordMatchValidator });
+  
+  passwordMatchValidator(group: FormGroup) {
+    const pass = group.get('password')?.value;
+    const confirm = group.get('confirmPassword')?.value;
+    return pass === confirm ? null : { passwordMismatch: true };
+  }
+
+Q101: How would you handle a scenario where two-way binding with ngModel causes infinite loops?
+  To prevent infinite loops with ngModel, you should:
+  Avoid changing the bound property inside the setter without checks.
+  Use ngModelChange event to separate update logic from binding.
+  <input [ngModel]="value" (ngModelChange)="onValueChange($event)">
+  onValueChange(newValue: string) {
+    if (this.value !== newValue) {
+      this.value = newValue;
+    }
+  }
+Q102: Suppose a reactive form’s validation is not triggering as expected. How would you debug the issue?
+First, I’d check if validators are properly attached to the form controls. Then I’d ensure the controls are correctly bound in the template using formControlName. I’d log form.errors or specific control errors to see if Angular is detecting them.
+If the form or controls are being updated dynamically, I’d call updateValueAndValidity() to re-trigger validation. I’d also use markAllAsTouched() on form submission to make sure validation messages appear.
+Finally, I’d inspect if any structural directives like *ngIf are affecting control rendering and make sure all controls are part of the intended FormGroup.
+
+Q103: If a form control’s value changes unexpectedly due to user input, how would you track and handle it?
+I’d subscribe to the control’s valueChanges to monitor changes. I’d verify bindings in the template and component, check for unintended updates from custom directives or reactive code, and use { emitEvent: false } when needed to avoid recursive triggers.
+
+Q104: How would you implement a dynamic form where fields are added or removed based on user actions?
+I’d use FormArray inside a FormGroup to manage dynamic fields. I’d push or remove FormControl instances in response to user actions, and bind the form array in the template using formArrayName. This allows full control over the structure at runtime.
+
+Q105: In a scenario where a form submission fails due to a server error, how would you provide user feedback?
+I’d catch the error in the service call’s subscription or catchError block. Then, display a user-friendly error message via a toast, snackbar, or inline alert in the form. Also, I’d ensure the form stays editable so the user can correct and resubmit.
+
+Q106: Suppose you need to sync form data across multiple tabs in a browser. How would you approach this?
+I’d use `localStorage` to save form data on every change. Then, listen for the browser’s `storage` event to detect updates from other tabs and update the form accordingly. This ensures real-time synchronization of form data across all open tabs.
+
+Q107: How would you handle a large reactive form with dozens of fields to ensure it remains performant?
+I’d break the form into smaller nested FormGroups to organize fields. Use OnPush change detection strategy to minimize unnecessary checks. I’d also debounce valueChanges where possible and avoid heavy computations inside subscriptions. Lazy load or render form sections conditionally if needed.
+
+Q108: If a template-driven form is not binding data correctly, what steps would you take to diagnose the issue?
+I’d first check if FormsModule is imported. Verify correct use of ngModel with proper name attributes. Inspect console for binding errors. Also, ensure two-way binding syntax [(ngModel)] is used properly and the component properties exist and are initialized.
+
+Q109: How would you implement a custom form control that integrates with Angular’s ControlValueAccessor?
+I’d create a component implementing ControlValueAccessor interface, define methods: writeValue(), registerOnChange(), registerOnTouched(), and setDisabledState(). Then provide NG_VALUE_ACCESSOR in the component’s providers to link it with Angular forms API for seamless integration.
+
+Q110: Suppose a form needs to support autosave functionality. How would you implement it efficiently?
+I’d subscribe to form valueChanges with a debounceTime to reduce frequent saves, then trigger a save to backend or localStorage. Also, implement a mechanism to avoid race conditions or overlapping saves.
+
+Q111: In a scenario where form validators are slowing down the UI, how would you optimize them?
+I’d review validators to ensure they are efficient, avoid heavy synchronous processing, move expensive checks to async validators, debounce validation triggers, and use OnPush change detection to reduce re-renders.
+
+Q112: How would you handle a form that needs to support both synchronous and asynchronous validation?
+I’d combine synchronous validators in Validators array and async validators separately using the asyncValidators option on FormControl or FormGroup, ensuring async validators return an observable or promise.
+
+Q113: If a user submits a form with invalid data, how would you display field-specific error messages?
+I’d check each FormControl’s invalid and touched or dirty state, then display relevant error messages in the template using *ngIf based on specific validator errors like required or minlength.
+
+Q114: How would you implement a form that supports undo/redo functionality for user inputs?
+I’d maintain a stack or history array of form states on every change. For undo, revert to the previous state from the stack; for redo, move forward in history. Use deep copies of form values to avoid mutation issues. Integrate these with buttons or keyboard shortcuts for user control.
+
+Q115: Suppose a reactive form’s valueChanges observable is firing too frequently. How would you throttle it?
+I’d use RxJS operators like debounceTime or throttleTime on the valueChanges observable to limit how often the handler runs, reducing unnecessary processing while still capturing meaningful updates.
+
+Q116: What is a service in Angular, and how is it created?
+A service is a class used to share data or logic across components. It's created with ng generate service service-name and decorated with @Injectable().
+
+Q117: How do you inject a service into a component?
+By adding it to the component’s constructor: constructor(private myService: MyService) {}
+
+Q118: What is the role of the @Injectable decorator?
+It marks a class as available for dependency injection and allows Angular to inject dependencies into that class.
+
+Q119: Explain the concept of hierarchical dependency injection in Angular.
+Angular creates injectors in a tree structure. A service provided at a component level creates a new instance, while a service provided at root is shared globally.
+
+Q120: What is the difference between providedIn: 'root' and module-level providers?
+providedIn: 'root' makes the service a singleton at the application level. Module-level providers create instances scoped to that module or component tree.
+
+Q121: How do you create a singleton service in Angular?
+Provide it using providedIn: 'root' in the @Injectable() decorator.
+
+Q122: What is the purpose of the Injector in Angular?
+The Injector is the DI system that resolves and provides dependencies to components, directives, and services.
+
+Q123: How do you pass data between services in Angular?
+By using shared services and maintaining state in class properties or with Subjects/BehaviorSubjects for reactive updates.
+
+Q124: What is the difference between a service and a component?
+A component controls a view (HTML + logic) and handles user interaction.
+A service contains reusable business logic or shared data and has no UI. Components use services to separate concerns and promote code reuse.
+
+Q125: How do you handle HTTP requests in an Angular service?
+I use Angular’s HttpClient to make HTTP requests. The service injects HttpClient and exposes methods that return observables. These methods are then subscribed to in components.
+@Injectable({ providedIn: 'root' })
+export class ApiService {
+  constructor(private http: HttpClient) {}
+
+  getUsers(): Observable<User[]> {
+    return this.http.get<User[]>('/api/users');
+  }
+
+  addUser(user: User): Observable<User> {
+    return this.http.post<User>('/api/users', user);
+  }
+}
+
+Q126: What is the HttpClient module, and how is it used?
+HttpClientModule is part of @angular/common/http and provides the HttpClient service to perform HTTP requests. To use it, you import HttpClientModule in your AppModule, then inject HttpClient into your services or components to make GET, POST, PUT, DELETE, etc., requests.
+  import { HttpClientModule } from '@angular/common/http';
+  @NgModule({
+    imports: [HttpClientModule]
+  })
+  export class AppModule {}
+  @Injectable({ providedIn: 'root' })
+  export class DataService {
+    constructor(private http: HttpClient) {}
+  
+    getData() {
+      return this.http.get('/api/data');
+    }
+  }
+Q127: How do you handle errors in HTTP requests in Angular?
+I use RxJS catchError operator inside the service method to handle HTTP errors. It allows centralized error handling, logging, and user notifications without crashing the app.
+  getData(): Observable<Data> {
+    return this.http.get<Data>('/api/data').pipe(
+      catchError((error: HttpErrorResponse) => {
+        // Log or transform error
+        console.error('Error occurred:', error.message);
+        return throwError(() => new Error('Failed to load data'));
+      })
+    );
+  }
+ 
+Q128: What is the purpose of the HttpInterceptor in Angular?
+HttpInterceptor is used to intercept and modify outgoing HTTP requests and incoming responses globally. It's commonly used for:
+Adding authentication tokens (e.g., Authorization headers)
+Logging requests and responses
+Handling global errors
+Modifying or transforming response data
+  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    const authReq = req.clone({
+      headers: req.headers.set('Authorization', `Bearer ${token}`)
+    });
+    return next.handle(authReq);
+  }
+  
+Q129: How do you mock a service for testing in Angular?
+In unit tests, you can mock a service using Jasmine spies or by providing a mock class with the TestBed:
+  class MockUserService {
+    getUser() { return of({ name: 'Test User' }); }
+  }
+  
+  TestBed.configureTestingModule({
+    providers: [{ provide: UserService, useClass: MockUserService }]
+  });
+  const mockService = jasmine.createSpyObj('UserService', ['getUser']);
+  mockService.getUser.and.returnValue(of({ name: 'Test' }));
+
+Q130: What are the best practices for structuring services in Angular?
+  Keep them single-responsibility: One service should handle one concern.
+  Use providedIn: 'root' for singleton services unless scoped differently.
+  Avoid directly accessing DOM or component logic.
+  Use Observables for async operations and state management.
+  Organize services into feature folders for modularity.
+  Encapsulate HTTP logic inside services rather than components.
+
+Q131: If a service’s HTTP request is failing intermittently, how would you debug and handle the issue?
+  Check network logs (browser dev tools) to identify failure patterns or status codes.
+  Add detailed error logging in the service to capture error messages and stack traces.
+  Use Angular’s retry operator to retry failed requests a few times before failing.
+  Implement exponential backoff to avoid hammering the server.
+  Verify backend stability and API limits with backend team.
+  Handle errors gracefully in UI with user-friendly messages and fallback options.
+  Optionally use HttpInterceptor to centralize error handling and logging.
+
+Q132: How would you implement a caching mechanism in a service to reduce HTTP calls?
+I’d store the API response in a local variable or a Map inside the service. Before making a new HTTP call, I’d check if the requested data exists in the cache and return it using of(cachedData). If not, I’d make the HTTP call, cache the response, and return it using shareReplay to prevent duplicate calls for concurrent subscribers. For example:
+  private cache = new Map<string, any>();
+  
+  getData(url: string): Observable<any> {
+    if (this.cache.has(url)) {
+      return of(this.cache.get(url));
+    }
+    return this.http.get(url).pipe(
+      tap(data => this.cache.set(url, data)),
+      shareReplay(1)
+    );
+  }
+
+Q133: Suppose a service is instantiated multiple times unexpectedly. How would you ensure it remains a singleton?
+In Angular, to ensure a service remains a singleton, I’d use the providedIn: 'root' option in the @Injectable() decorator. This ensures the service is provided once at the root injector level. If it’s still being instantiated multiple times, I’d check for:
+Lazy-loaded modules that may declare the service in their providers array (which creates a new instance).
+Component-level providers, which also lead to multiple instances.
+To fix it, I’d move the service out of any module/component providers array and rely solely on providedIn: 'root'.
+
+Q134: In a scenario where a service depends on multiple other services, how would you manage circular dependencies?
+Circular dependencies occur when two or more services depend on each other directly or indirectly. I’d manage it by:
+Refactoring the logic to extract shared functionality into a separate helper or utility service.
+Using Angular’s Injector to lazily inject dependencies only when needed, avoiding circular references during initialization.
+  constructor(private injector: Injector) {}
+  
+  someMethod() {
+    const serviceB = this.injector.get(ServiceB);
+    serviceB.doSomething();
+  }
+
+Q135: How would you create a service to handle real-time updates using WebSockets in Angular?
+To handle real-time updates using WebSockets in Angular, I would create a dedicated service that encapsulates all WebSocket-related logic. Here's how I’d approach it:
+  import { Injectable } from '@angular/core';
+  import { Observable, Subject, webSocket, WebSocketSubject } from 'rxjs/webSocket';
+  
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class WebSocketService {
+    private socket$: WebSocketSubject<any>;
+  
+    connect(url: string): void {
+      if (!this.socket$ || this.socket$.closed) {
+        this.socket$ = webSocket(url);
+      }
+    }
+  
+    onMessage(): Observable<any> {
+      return this.socket$.asObservable();
+    }
+  
+    sendMessage(msg: any): void {
+      this.socket$.next(msg);
+    }
+  
+    close(): void {
+      this.socket$.complete();
+    }
+  }
+Q136: If a service’s data is not updating components as expected, how would you troubleshoot?
+I’d first check if the data is being exposed as an Observable and subscribed to in the component. Then verify that the service is a singleton and not being recreated due to incorrect provider scope. I'd also ensure change detection isn't being bypassed—particularly in OnPush components—by manually triggering it or using async pipe.
+
+Q137: How would you implement a service to handle file uploads with progress tracking?
+I’d use Angular’s HttpClient with reportProgress: true and observe: 'events'. I’d create a service method that returns an Observable<HttpEvent<any>> and handle different event types like UploadProgress and Response in the component to track upload percentage and completion.
+
+Q138: Suppose a service needs to share data across unrelated components. What approach would you use?
+I’d create a singleton shared service with a BehaviorSubject or ReplaySubject to hold the data. Components can subscribe to this observable to receive updates and push changes, enabling bidirectional communication across unrelated components.
+
+Q139: How would you refactor a monolithic service into smaller, more manageable services?
+I’d identify logical boundaries and group related methods and concerns (e.g., API handling, state management, utility functions). Then, I’d extract them into feature-specific services and inject them where needed. This improves testability, scalability, and code clarity.
+
+Q140: If a service’s dependency injection causes performance issues, how would you optimize it?
+I’d check if any dependencies are being unnecessarily instantiated frequently due to incorrect provider scope. I'd move services to providedIn: 'root' for singleton behavior and lazy-load heavy services only in modules/components where needed to reduce initial load.
+
+Q141: What is routing in Angular, and how is it implemented?
+In Angular, routing enables navigation between different views or components based on the URL. It allows the application to behave like a single-page application (SPA) with multiple "pages".
+Implementation Steps:
+Import the RouterModule:
+In app.module.ts, import RouterModule and configure it with routes using RouterModule.forRoot().
+  import { RouterModule, Routes } from '@angular/router';
+  const routes: Routes = [
+    { path: 'home', component: HomeComponent },
+    { path: 'about', component: AboutComponent },
+    { path: '', redirectTo: 'home', pathMatch: 'full' },
+    { path: '**', component: NotFoundComponent }
+  ];
+  @NgModule({
+    imports: [RouterModule.forRoot(routes)],
+    exports: [RouterModule]
+  })
+  export class AppRoutingModule {}
+Use <router-outlet> in a template:
+It acts as a placeholder for the routed components.
+<router-outlet></router-outlet>
+
+Q142: How do you configure routes in an Angular application?
+A: Routes are configured using the RouterModule in the app-routing.module.ts file. You define an array of route objects with path and component properties, then pass it to RouterModule.forRoot(routes).
+
+Example:
+const routes: Routes = [
+  { path: 'home', component: HomeComponent },
+  { path: 'about', component: AboutComponent },
+];
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
+})
+
+Q143: What is the RouterModule in Angular?
+A: RouterModule is a built-in Angular module that provides router directives and services. It enables navigation between components and manages route configuration, guards, parameters, and lazy loading.
+
+Q144: Explain the difference between RouterLink and Router.navigate.
+A:
+- RouterLink: Used in templates for declarative navigation. Example: <a [routerLink]="['/home']">Home</a>
+- Router.navigate: Used in TypeScript code for programmatic navigation. Example: this.router.navigate(['/home']);
+
+Q145: What is a route guard in Angular, and what are its types?
+A: A route guard controls navigation to/from a route. Types:
+- CanActivate: checks access before activating a route
+- CanDeactivate: checks if user can leave a route
+- Resolve: pre-fetches data before activating route
+- CanLoad: prevents loading of lazy-loaded modules
+- CanActivateChild: checks access to child routes
+
+Q146: How do you implement a CanActivate guard?
+A: Create a service implementing CanActivate and register it in the route.
+
+@Injectable()
+export class AuthGuard implements CanActivate {
+  constructor(private auth: AuthService) {}
+  canActivate(): boolean {
+    return this.auth.isLoggedIn();
+  }
+}
+
+Route config:
+{ path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] }
+
+Q147: What is the purpose of the CanDeactivate guard?
+A: CanDeactivate prevents users from accidentally leaving a route, such as a form with unsaved changes.
+
+Example:
+export interface CanComponentDeactivate {
+  canDeactivate: () => boolean | Observable<boolean>;
+}
+
+@Injectable()
+export class CanDeactivateGuard implements CanDeactivate<CanComponentDeactivate> {
+  canDeactivate(component: CanComponentDeactivate): boolean {
+    return component.canDeactivate();
+  }
+}
+
+Q148: How do you handle route parameters in Angular?
+A: Use ActivatedRoute to read parameters from the route.
+
+constructor(private route: ActivatedRoute) {}
+ngOnInit() {
+  const id = this.route.snapshot.paramMap.get('id');
+  // or use this.route.paramMap.subscribe()
+}
+
+Q149: What is the difference between query parameters and route parameters?
+A:
+- Route Parameters: Defined in route path and required. Example: /user/:id
+- Query Parameters: Appended to URL after ?, optional. Example: /search?query=angular
+
+Access:
+- Route: route.snapshot.paramMap.get('id')
+- Query: route.snapshot.queryParamMap.get('query')
