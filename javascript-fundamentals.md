@@ -199,7 +199,7 @@ Array.prototype.calculate = function(logic){
 }
 
 console.log(radius.calculate(area));
-//console.log(radius.map(area)); pollyfill for map function in javascript
+console.log(radius.map(area)); pollyfill for map function in javascript
 
 
 ```
