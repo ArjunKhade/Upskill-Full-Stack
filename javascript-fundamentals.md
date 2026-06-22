@@ -203,3 +203,130 @@ console.log(radius.map(area)); pollyfill for map function in javascript
 
 
 ```
+
+
+# Shallow Copy vs Deep Copy in JavaScript
+
+## 1. Shallow Copy
+
+A shallow copy creates a new object, but nested objects/arrays are still **shared** between the original and the copy.
+
+```js
+const person = {
+  name: "Arjun",
+  address: {
+    city: "Pune"
+  }
+};
+
+const copy = { ...person };
+
+copy.name = "Rahul";
+copy.address.city = "Mumbai";
+
+console.log(person);
+```
+
+**Output:**
+
+```js
+{
+  name: "Arjun",
+  address: {
+    city: "Mumbai"
+  }
+}
+```
+
+**Why?**
+
+- `name` is a primitive value → copied independently.
+- `address` is an object → only its **reference** is copied.
+
+**Memory representation:**
+
+```
+person ------+
+             |
+             v
+         { city: "Mumbai" }
+
+copy --------+
+```
+
+### Common ways to create a shallow copy
+
+```js
+const copy1 = { ...obj };
+const copy2 = Object.assign({}, obj);
+const copy3 = [...arr];
+```
+
+---
+
+## 2. Deep Copy
+
+A deep copy creates a completely **independent** copy, including all nested objects and arrays.
+
+```js
+const person = {
+  name: "Arjun",
+  address: {
+    city: "Pune"
+  }
+};
+
+const copy = structuredClone(person);
+
+copy.address.city = "Mumbai";
+
+console.log(person.address.city); // Pune
+console.log(copy.address.city);   // Mumbai
+```
+
+**Memory representation:**
+
+```
+person --> { city: "Pune" }
+
+copy   --> { city: "Mumbai" }
+```
+
+Both objects are completely separate.
+
+### Modern way (recommended)
+
+```js
+const copy = structuredClone(obj);
+```
+
+### Older approach
+
+```js
+const copy = JSON.parse(JSON.stringify(obj));
+```
+
+**Limitations of `JSON.parse(JSON.stringify(...))`:**
+
+- ❌ Loses `functions`
+- ❌ Loses `Date` objects
+- ❌ Loses `undefined` values
+
+---
+
+## Angular Interview Answer (Short)
+
+**Shallow Copy:** Copies only the first level of an object. Nested objects are copied by reference, so changes in nested properties affect the original object.
+
+**Deep Copy:** Copies the entire object hierarchy. Nested objects are duplicated, so changes in the copied object do not affect the original object.
+
+**Example:**
+
+```js
+const obj1 = { a: 1, b: { c: 2 } };
+
+const shallow = { ...obj1 };
+const deep = structuredClone(obj1);
+```
+
+> **Why it matters in Angular:** Angular change detection often relies on creating new object references using the spread operator (`...`), which performs a **shallow copy**, not a deep copy. This is why `structuredClone` is preferred when you need full isolation of nested state.
