@@ -175,9 +175,31 @@ A **higher order function** is a function that:
 - Returns a function.
 
 ```js
+example:1
 function higherOrder(callback) {
   callback();
 }
 
 higherOrder(() => console.log("Called as a callback!"));
+
+example:2
+
+const radius = [3, 4, 5];
+
+const area = function (radius){
+  return Math.PI * radius* radius;
+}
+
+Array.prototype.calculate = function(logic){
+  const output = [];
+  for(let i=0; i<this.length;i++){
+    output.push(logic(this[i]));
+  }
+  return output;
+}
+
+console.log(radius.calculate(area));
+//console.log(radius.map(area)); pollyfill for map function in javascript
+
+
 ```
