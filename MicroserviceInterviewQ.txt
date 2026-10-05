@@ -1,0 +1,239 @@
+1. What happens if a payment succeeds but the inventory service fails (Order -> Payment -> Inventory)?
+
+This causes an inconsistent state where money is deducted, but the item isn't reserved. To fix this, you should use a rollback/refund mechanism, a retry mechanism, or the Saga pattern to automatically undo previous successful steps.
+
+2. How does the Saga pattern automatically undo actions?
+
+It works like a step-by-step transaction with a backup plan. If any step fails, the system runs "compensating actions" (e.g., triggering a refund) to undo the previous successful steps.
+
+3. What is the difference between the Choreography and Orchestration styles of the Saga pattern?
+
+Choreography: There is no central controller. Each service reacts to events independently (e.g., Order sends an event, Payment listens and processes, then sends another event).
+
+Orchestration: A central coordinator (orchestrator) controls the flow, telling each service what to do step-by-step and handling any required rollbacks.
+
+4. If each microservice has its own database, should you call another service every time you need its data?
+
+No, calling another service every time causes high latency and tight coupling. Instead, use data replication. Share updates via events so each service keeps a small, local copy of the required data.
+
+5. Why should each microservice have its own database?
+
+To remain independent. This ensures one service can change, scale, or fail without bringing down or tightly coupling to other services.
+
+6. If your API Gateway suddenly experiences heavy traffic, what do you do?
+
+Scale the gateway horizontally (add more instances behind a load balancer), apply rate-limiting and caching, and use a message queue (like RabbitMQ or Kafka) for heavy operations so requests don't fail immediately.
+
+7. Why use an API Gateway instead of calling services directly?
+
+It simplifies communication by providing a single entry point. It prevents the client from having to manage multiple URLs and handles cross-cutting concerns like authentication, logging, rate-limiting, and routing.
+
+8. When should you choose synchronous vs. asynchronous communication?
+
+Synchronous: Use when an instant response is required (e.g., login, payment confirmation).
+
+Asynchronous: Use for background tasks (e.g., sending emails, analytics, updating reports) or to reduce load during high traffic.
+
+9. How do you handle an application repeatedly calling a service that is down?
+
+Use a Circuit Breaker to stop calling the service temporarily, implement retries with delays, provide fallback responses (e.g., "try again later"), and enforce timeouts.
+
+10. How do you debug a request that fails across five different microservices?
+
+Generate a unique Trace ID/Request ID at the start and pass it via headers. Use distributed tracing tools (like Zipkin) and centralized logging to follow that exact ID across all services to spot the failure.
+
+11. How do you deploy a new version without downtime?
+
+Use zero-downtime techniques such as Blue-Green Deployment (running old and new side-by-side, then switching traffic), Rolling Deployment (updating servers one by one), or Canary Deployment (releasing to a small group of users first).
+
+12. How do you handle a service failing due to temporary network issues?
+
+Implement a retry mechanism with a delay and a strict limit (e.g., 3 retries). Use a circuit breaker if it keeps failing, and provide a fallback response (like returning cached data).
+
+13. How do you ensure duplicate payments don't happen if a Payment API is accidentally called twice?
+
+Implement Idempotency. Send a unique transaction ID with the request. The system will check the ID and ignore the duplicate request, returning the stored status of the first one.
+
+14. How do you handle database transactions across multiple microservices?
+
+Use the Saga Pattern. Break the transaction into smaller local steps. If a step fails, run compensating actions rather than relying on traditional monolithic database rollbacks.
+
+15. How do you scale a single service that is receiving a heavy load?
+
+Scale it horizontally by adding more instances behind a load balancer, enable auto-scaling based on traffic, optimize the code, and introduce caching.
+
+16. How do you manage configurations across 10 microservices for different environments?
+
+Use a centralized configuration management system (like Spring Cloud Config) where all configs are stored in one place and fetched dynamically by services.
+
+17. How do you debug a service that works in staging but fails in production?
+
+Compare environment configurations and variables, check logs, verify external dependencies, look for data differences, and attempt to reproduce the exact state in staging.
+
+18. What happens when Service A calls Service B, and Service B is down?
+
+Service A's request will fail or hang. Handle this using timeouts, retries, and circuit breakers, and ensure Service A returns a fallback response so the whole system doesn't crash.
+
+19. What do you do if one microservice is slow and impacting the entire system?
+
+Use monitoring and logs to find the root cause. Optimize DB queries or code, add caching, scale the service horizontally, and use async calls or timeouts to isolate the impact.
+
+20. How do you handle security in microservices?
+
+Secure APIs using tokens (JWT/OAuth) and HTTPS. Validate inputs, use an API Gateway for centralized security, enforce service-to-service authentication, and implement Role-Based Access Control (RBAC).
+
+21. When should you NOT use microservice architecture?
+
+Do not use it for small or simple applications, if you have a small/inexperienced team, or if you need rapid deployment with strong coordination. A monolithic architecture is better in these cases.
+
+22. How do you handle concurrent updates (two services updating the same data simultaneously)?
+
+Use Optimistic Locking (adding version numbers to records and rejecting updates on version mismatch), Pessimistic Locking (locking data during an update), or Idempotency.
+
+23. How do you prevent a buggy service from spreading incorrect event data to others?
+
+Enforce a strict event format/contract, make consumers double-check incoming data rules, implement idempotency, and use a circuit breaker to temporarily stop consuming from the bad service.
+
+24. How do you trace a request across services in a centralized logging system?
+
+Generate a unique Correlation/Trace ID when the request enters the system, pass it via headers, log it in every service, and filter logs by that ID.
+
+25. How do you fix a message queue backlog (messages getting stuck)?
+
+Remove or skip "poison pill" (bad) messages, restart crashed worker services, increase the number of worker instances, optimize slow APIs, and rate-limit incoming tasks.
+
+26. How do you secure internal services if one is accidentally exposed to outside traffic?
+
+Place internal services exclusively behind an API Gateway, restrict inter-service communication via network policies, use service-to-service authentication (JWT), and apply rate limiting.
+
+27. How do you roll out a new feature to only 10% of users?
+
+Use a stable identifier (like User ID), hash it, and use modulo to place users into 100 buckets. Enable the feature only for buckets 0 to 9 to ensure a consistent experience.
+
+28. How do you fix high latency caused by too many interservice calls?
+
+Use an API Composition layer to fetch data in one go, implement caching to avoid redundant calls, and utilize asynchronous communication.
+
+29. How do you break down tightly coupled modules when migrating a monolith?
+
+Note: The speaker incorrectly answered this in the video by mentioning latency solutions like timeouts and caching instead of architectural decomposition strategies.
+
+30. How do you solve global latency issues for users in different regions?
+
+Deploy services in multiple geographic regions, use location-based routing to send users to the closest server, leverage CDNs/caches, and use multi-region database read replicas.
+
+31. How do you ensure high reliability for critical financial data?
+
+Run multiple instances, use strict database replication and backups, implement retries and failover mechanisms, and strictly enforce database transactions and validation checks.
+
+32. How do you design microservices for extreme scalability (millions of requests/sec)?
+
+Keep services stateless, scale horizontally behind load balancers, heavily use caching, utilize async processing, shard databases, use read replicas, and set up auto-scaling.
+
+33. How do you debug sudden CPU spikes after a deployment?
+
+Check recent code changes for infinite loops or bugs (rollback if found). If the code is fine, check for sudden traffic surges and scale up, or hunt for unoptimized database queries and heavy APIs.
+
+34. How do you implement real-time updates (like chat or notifications)?
+
+Use WebSockets for a persistent connection. When an event occurs, push it to a message queue, have a dedicated notification service pick it up, and push it directly to the client. Store messages in a DB for offline users.
+
+35. How do you handle third-party APIs that fail randomly?
+
+Check provider status pages and logs. Protect your own system by implementing strict timeouts, retries with limits, circuit breakers, and cached fallback responses.
+
+36. Is it good design if a single user request triggers 50+ internal service calls?
+
+No. Fix it by consolidating calls using an API composition layer (or BFF), caching frequently requested data, and storing local read-copies of data via event-driven replication.
+
+37. If network latency increases, are microservices still better than a monolith?
+
+No. A monolith runs in a single process with zero network delay. If inter-service network latency is severely high, a monolith will perform much faster.
+
+38. What are the main strategies for testing microservices?
+
+Unit Testing: Mocking dependencies to test logic independently.
+
+Integration Testing: Testing DB/API interactions.
+
+End-to-End Testing: Testing full user flows across the entire architecture.
+
+39. How do you scale databases without downtime?
+
+Scale gradually. Add read replicas for read-heavy traffic, use sharding for vast data, and perform migrations using rolling or blue-green deployment strategies to shift traffic slowly.
+
+40. How do you handle database schema changes?
+
+Always use a backward-compatible approach. Add new fields first, update the services to read/write both, and only remove the old fields in a subsequent deployment.
+
+41. Two services show different data for the same user. How do you fix this inconsistency?
+
+Check timestamps and logs to find the divergence. Fix root causes like missed events or delayed syncs, and rely on event-driven architectures with retries to eventually sync the data.
+
+42. How do you handle cache invalidation to prevent stale data?
+
+Use TTL (Time To Live) expirations, Event-based invalidation (clearing cache exactly when a DB update happens), or the Cache-Aside pattern.
+
+43. How do you maintain data integrity if multiple services update data out of order?
+
+Use versioning/optimistic locking, or utilize a central service/event queue to strictly enforce the order of operations.
+
+44. What should happen if half your services go down due to network failure?
+
+The system should degrade gracefully, not crash. It should rely on circuit breakers, timeouts, and fallbacks (cached/partial data) while triggering alerts for auto-recovery.
+
+45. Can a system have both Strong Consistency and High Availability?
+
+No. According to the CAP theorem, during a network partition/failure, you must choose between Strong Consistency (accurate data but potential downtime) or High Availability (always responding, but potentially stale data).
+
+46. What if implementing "retries" ends up increasing system load?
+
+Implement Exponential Backoff (increasing the wait time between retries), add Jitter (randomized delays), limit the max retries, and use a Circuit Breaker to stop retrying dead services.
+
+47. How do you debug a service that works correctly but has high latency?
+
+Check CPU/Memory metrics, use distributed tracing to find the bottleneck (e.g., a slow DB query or external API call), check thread pools, and optimize queries or add caching.
+
+48. How do you handle a message queue producing duplicate messages?
+
+Enforce Idempotency at the consumer level by giving each message a unique ID and tracking processed IDs in a database or cache.
+
+49. How do you ensure messages are processed in the correct order?
+
+Use Partitioning (routing the same key to the same partition) so they are consumed sequentially. Alternatively, use sequence numbers and reorder them at the consumer side.
+
+50. How do you design a system with high read traffic but low write traffic?
+
+Use CQRS (Command Query Responsibility Segregation). Separate read and write databases. Writes go to a write DB, which then asynchronously updates a heavily optimized, read-only DB via events.
+
+51. Why might CQRS show outdated data, and how do you fix it?
+
+Due to Eventual Consistency (sync delay). Fix it by reducing the sync delay, using real-time event streaming, showing UI hints ("data is updating"), or forcing critical reads to hit the write DB.
+
+52. When should you NOT use CQRS?
+
+Do not use it for simple CRUD applications, systems with low traffic, systems requiring absolute strong consistency (like core banking), or if your team is too small to handle the complexity.
+
+53. What happens if the API Gateway goes down, and how do you prevent it?
+
+The whole system becomes inaccessible. Prevent this by deploying multiple gateway instances behind a load balancer, using multi-zone deployments, and setting up auto-scaling.
+
+54. How do you return different data structures for Mobile vs. Web clients?
+
+Use the BFF (Backend for Frontend) pattern. Create separate gateway/composition layers for each client type to tailor the responses and prevent over-fetching.
+
+55. Traffic is still routing to an instance that went down. What went wrong?
+
+Health checks or Service Discovery failed. The load balancer did not detect that the instance was dead. Fix the liveness/readiness probes to ensure fast failure detection.
+
+56. How do services discover each other dynamically?
+
+Using a Service Registry (like Eureka or Consul). Services register themselves on startup, and other services query the registry to find active instances instead of hardcoding IP addresses.
+
+57. Autoscaling adds new instances, but they receive no traffic. Why?
+
+The new instances are failing their health/readiness checks, there is a delay in the service registry update, or the load balancer hasn't refreshed its routing table.
+
+58. If an internal service is compromised, how do you prevent full-system damage?
+
+Apply Zero Trust Architecture. Use strict inter-service authentication (mTLS/JWT), limit network policies, utilize rate-limiting to prevent DoS spreading, and immediately revoke access upon detecting suspicious activity.
