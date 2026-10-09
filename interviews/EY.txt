@@ -1,0 +1,58 @@
+# Angular+Java    3 March 2026
+
+//Create singleton class
+public class Singleton {
+
+    // Private constructor prevents instantiation
+    private Singleton() {
+    }
+
+    // Static inner class - not loaded until getInstance() is called
+    private static class SingletonHolder {
+        private static final Singleton INSTANCE = new Singleton();
+    }
+
+    // Public method to provide access
+    public static Singleton getInstance() {
+        return SingletonHolder.INSTANCE;
+    }
+}
+
+
+
+
+function a(){
+  let count = 0;
+   return function(){
+     count ++;
+     console.log(count);
+  }
+}
+a()();
+
+console.log('A');
+setTimeout(() => console.log('B'), 0);
+Promise.resolve().then(() => console.log('C'));
+console.log('D');
+
+output: A D C B
+
+
+
+for (var i = 0; i < 3; i++) {
+  setTimeout(function() {
+    console.log(i);
+  }, 100);
+}
+
+//output: 3
+
+
+
+What Benefites of microservices arc?
+Singleton design pattern?
+Api gateway?
+Call , Apply, Bind?
+Closures?
+let var const?
+

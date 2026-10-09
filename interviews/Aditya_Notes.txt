@@ -1,0 +1,112 @@
+Write code for immutable class in java 
+ 
+Comparable and Comparator
+
+Bubble Sort
+ 
+3 highest salary from each department
+ 
+Questions 
+Panel name-Krapa 
+
+1 Table person, columns id-primary key, email-id 
+Delete duplicate email id 
+1. table-person-id,firstname,lastname. Table address-state,city,address-id,person-id. Get the firstname,lastname,addressid 
+2. What are the data types that exist ? 
+3. Why do we use wrapper class. Features. 
+4. String s=“name”. s.concat(“final”). Sop(s). Working of this. Justify concat if string is immutable. Where will it be stored.
+5. Explain immutability. Write an immutable class
+6. What is meant by cloning? Deep copy and shallow copy
+7. What are the types of collections . What are use cases of linkedlist and array list 
+8. Linkedlist working when we add elements, remove
+9. doubly linkedlist. 
+10. How is list different from map
+11. Hashmap structure and working 
+12. Write custom class and implement hashmap. What if I change the key. Why key should be immutable 
+13. You have 2 lists . Merge them and sort them using streams api and print in ide 
+14. Talk about variable scopes in a class. Local variable, class variable etc. 
+15. bean scope
+
+
+Hi Harsh,
+These are the technical scenarios were asked
+ 
+Scenario 1:
+ 
+class A {
+    void eat() {
+        System.out.println("A is eating");
+    }
+}
+ 
+class B extends A {
+    void eat() {
+        System.out.println("B is eating");
+    }
+}
+ 
+1.
+public class Test {
+    public static void main(String[] args) {
+        B b1 = new A(); 
+        b1.eat(); ??
+    }
+}
+ 
+2. Can we do B b1 = new A(); ? Technically it should be correct because B is superclass of A as it has everything A has and specific to B as well. If no, why?
+ 
+3. What if we define drink() method only in class B, 
+  A a1 = new B();
+  a1.drink(); ?? What will be the output
+ 
+4. Why java does not allow to create object of parent class with reference of child class??
+ 
+ 
+Scenario 2:
+ 
+public class TryCatchFinallyExample {
+    public static int testMethod() {
+        try {
+            System.out.println("Inside try");
+            return 5;
+        } catch (Exception e) {
+            System.out.println("Inside catch");
+            return 6;
+        } finally {
+            System.out.println("Inside finally");
+            return 7;
+        }
+    }
+}
+ 
+1. If no exception occurs, what will be printed and what will be returned?
+ 
+2. If an exception occurs inside the try block, what will be printed and returned?
+ 
+(Will the finally block still run? Will it override return from catch?)
+ 
+3. Can a finally block override a return from try or catch?
+ 
+4. Is the case any case where finally block does not execute
+ 
+5. Is Java a compiled or interpreted language?
+ 
+6. How does the JVM interpret .class files? How the execution happens here which block will execute first? How another block will executed if first block is returning vale already
+
+
+
+Round one.
+ 
+1. Group Anagram
+2. Two sorted lists given, copy elements from both lists into a new list such that it is also sorted.
+3. Oops 4 pillar
+4. Overriding tricky questions.
+      a. Covariant return type
+      b. child method throw error
+5. Sql query left self join
+6. Singleton
+7. Stream to sort employee w name "ridhi"
+8. Make a class Immutable, deep copy.
+9. What is Lamba fun Why is it used?
+10. What are the features of the interface introduced in java 8, explain each.
+11. We have a batch job, to make a 1000 insert statement. If one fails how will you handle it.

@@ -1,0 +1,14 @@
+                                                             31 Aug 2026  Fullstack - Angular+Java
+- Project login API issues if any hacker gets credentials.
+- How to register service before angular app bootraps.
+- Will API request pass through the guards.
+- Will to skip some API calls to skip from interceptor.
+- What is difference between web worker and
+- How you will run angular app with diff configuration which change the backend URL based on configuration.
+- Service worker.
+- Angular project migration issue from 18 to 21.
+- Data binding, Event Binding
+- Will every request pass through interceptor.
+- Directives , how to pass data from parent to child or vice versa.
+- Webworker
+

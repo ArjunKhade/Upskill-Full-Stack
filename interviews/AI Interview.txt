@@ -1,0 +1,14 @@
+Authorization and Anthentication.
+Spring security.
+Role based authorization.
+Query performance improvement.
+How would you implement global exception handling.
+How to debug api fails.
+Microservice arc component. 
+Microservice Communications.
+Stream API , java 8
+
+
+Angular route Secure/guard.
+Angular dynamic data.
+JWT Auth and Auth.

@@ -1,0 +1,20 @@
+Volkswagen interview Java full stack  30 Apr 2026
+
+Java 8 features
+Functional interface
+Multithreading
+default and static method
+project migration experience?
+project structure?
+
+sealed class?
+java 17 features
+
+write code to call API in react to fetch data ?
+
+second highest salary query sql?
+
+By using streams: java 8 
+-find duplicates by using streams 
+-find even num multiply it by two
+-find occurrences of each char

@@ -1,0 +1,87 @@
+21 march 2026
+
+Q. Exception Handling
+
+import java.util.Scanner;
+
+class Solution {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        try {
+            String input = scanner.nextLine().trim();
+
+            // Split the input by spaces
+            String[] inputArray = input.split(" ");
+
+            // Task 1: Validate input length (must be exactly 3 parts)
+            if (inputArray.length != 3) {
+                throw new IllegalArgumentException("Invalid operation.");
+            }
+
+            double A = Double.parseDouble(inputArray[0]);
+            String operation = inputArray[1];
+            double B = Double.parseDouble(inputArray[2]);
+            double result = 0;
+
+            // Task 2: Perform operation using switch
+            switch (operation) {
+                case "+":
+                    result = A + B;
+                    break;
+                case "-":
+                    result = A - B;
+                    break;
+                case "*":
+                    result = A * B;
+                    break;
+                case "/":
+                    // Task 3: Division by zero check
+                    if (B == 0) {
+                        throw new ArithmeticException("Division by zero is not allowed.");
+                    }
+                    result = A / B;
+                    break;
+                default:
+                    throw new IllegalArgumentException("Invalid operation.");
+            }
+
+            System.out.println("Result: " + result);
+
+        } 
+        // Task 4: Handle invalid number format
+        catch (NumberFormatException e) {
+            System.out.println("NumberFormatException: Invalid input. Please enter valid numbers.");
+        } 
+        // Task 5: Handle arithmetic exception
+        catch (ArithmeticException e) {
+            System.out.println("ArithmeticException: Division by zero is not allowed.");
+        } 
+        // Task 6: Handle invalid operation
+        catch (IllegalArgumentException e) {
+            System.out.println("IllegalArgumentException: Invalid operation.");
+        } 
+        // Task 7: Close scanner using finally
+        finally {
+            scanner.close();
+        }
+    }
+}
+
+
+
+24 May 2026 
+
+- Employee add and get all employee with show records on tables
+
+public static int optimizeShoppingTrip(int n, List<List<String>> products, int m, List<String> shoppingList) {
+        // Write your code here
+         
+    
+    }
+
+public static String getAverageWorkoutDurations(List<Integer> memberIds, List<Integer> workoutMemberIds, List<Integer> startTimes, List<Integer> endTimes) {
+        // Write your code here
+
+    }
+
+

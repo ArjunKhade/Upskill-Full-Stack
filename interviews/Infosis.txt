@@ -1,0 +1,59 @@
+20 June 2026
+
+-Introduction
+-Linked Signal
+-Latest Angular feature
+-Standalone and Signal
+-Explain your project
+-Project version 
+-Change detection
+-Performance improvement techniques
+
+
+count  = signal(0);
+computed( ()=> count() * 2 )
+count.set(2);
+console.log(computes())
+
+
+console.log(1);
+setTimeOut(() => console.log(2))
+Promise.new().then(()=> console.log(3))
+console(4);
+
+<div class="color" id="color">
+
+.color{
+ colour : red;
+}
+
+#color {
+color : blue;
+}
+
+div{
+  color:black
+}
+
+
+30 June 2026
+-Introduction
+-how microservice communication
+-mvn install -D skip test
+-deployment successful unable to access app
+-lazy loading
+-angular app loading 
+-how you solved production issues
+-central logging
+-having and 
+-Static Code Analysis
+-spring MVC and spring boot
+-http methods with status code
+-docker Kubernetes
+-inner join , left join
+-spring annotations
+-exception handling
+-how would you manage priority task.
+-why are you switching 
+-strength and weakness
+-why we should hire you

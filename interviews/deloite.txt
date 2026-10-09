@@ -1,0 +1,20 @@
+== and equals() primitive and ref type
+synchronous and asynchronous communication example
+Threads Runnable, callable
+event loop and microtask and microtask que
+Asysnc await 
+debouncing and throttling
+UI improvement 
+what is module button
+thread life cycle 
+create custom exception class 
+
+public class CustomException extends Exception{
+
+ public CustomException(String message){
+   super(message);
+}
+}
+
+
+

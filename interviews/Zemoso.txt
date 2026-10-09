@@ -1,0 +1,52 @@
+ #Company Zemoso - 10 Aug 2026 - 2nd Round 
+-Introduction
+-Which are mutable and immutable?.
+-What is Idempotency
+-What are data type in JavaScript mutable and immutable datatypes.
+-Interceptors why do you clone request. is http request immutable?
+-What is event loops.
+-Pipe , different type of pipe. - Angular caches/reuses pipe results based on inputs
+-Memoization in Angular. - computed() Memoization derived state with Signals
+-Explain Microtask and Microtask queue.
+-How do you implement caching of 5 mins (with of post, put, delete.)
+
+
+Q1]
+
+Goal: De-duplicate orders by id, merge line items by sku, compute totals, and sort.
+
+Input (given):
+type LineItem = { sku: string; qty: number; price: number };
+type Order = { id: string; customerId: string; items: LineItem[]; createdAt: string };
+Implement (immutably):
+type NormalizedOrder = Order & { orderTotal: number };
+
+
+const orders: Order[] = [
+  { id: 'A1', customerId: 'C1', items: [{ sku:'P1', qty:1, price:100 }, { sku:'P2', qty:2, price:50 }], createdAt:'2025-08-01T10:00:00Z' },
+  { id: 'A1', customerId: 'C1', items: [{ sku:'P2', qty:1, price:50 }], createdAt:'2025-08-01T10:00:00Z' }, // duplicate to merge
+  { id: 'A2', customerId: 'C2', items: [{ sku:'P3', qty:3, price:20 }], createdAt:'2025-08-03T08:05:00Z' }
+];
+
+
+
+
+function normalizeOrders(input: Order[]): NormalizedOrder[] {
+  // ...
+}
+
+De-duplicate by id. If duplicates exist, merge items by sku (sum qty, keep any price).
+Compute orderTotal = Σ(qty * price) per order
+Sort result by createdAt desc.
+
+
+
+Q2]
+
+Create a service for GET /items that caches for 5 minutes and is invalidated on POST/PUT/DELETE.
+
+getProducts(){
+  this.appService.getAllOrders("URL")
+}
+
+

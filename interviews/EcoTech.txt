@@ -1,0 +1,5 @@
+What is the hurdle you face and resolved in ASP.net Core?
+How to secure web api and Authentication and Authorization?
+If Angular app taking lots of time loading the page how you will resole and approach?
+If the query taking lots of time to fetch the data how you will reduce it?
+

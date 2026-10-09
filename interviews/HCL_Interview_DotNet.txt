@@ -1,0 +1,30 @@
+Q.1 Input = {10, 2}
+      OutPut = 210  //form largest number
+
+Q.2 Fibonacci Series
+
+
+void Print(params int[] numbers) => Console.WriteLine(numbers.Length);
+Print();          // Output?
+Print(null);      // Output?
+
+
+class Base { public virtual void Show() => Console.Write("Base"); }
+class Derived : Base { public new void Show() => Console.Write("Derived"); }
+Base b = new Derived(); b.Show(); // Output?
+
+
+Desing pattern
+Solid principle
+Generics / Code for generics
+Authentication 
+Authorization
+Method overriding 
+lazy loading
+Entitty Framework Bulk update
+WebApi 
+Action result
+How can you test WebAPI
+JWT 
+API key authentication 
+      

@@ -1,0 +1,528 @@
+
+Hibernate:
+
+Hibernate is a Java framework that simplifies the development of Java application to interact with the database. 
+its a lightweight ORM tools used to map the object with data stored in th database.
+hibernate is a complete solution for manage persistance in java.
+hibernate implements specification of JPA for persitence. 
+hibernate is intermediate between javaApp and DB.
+
+advantages :
+1.lightweight
+2.opensource
+3.fast performance
+4.data independant query: jpql
+5.automatic table creation
+6.simplifies complex join 
+--------------------------------------------------
+What is ORM Tool?
+    • ORM stands for Object Relational mapping. 
+    • Which simplifies the data creation, data manipulation and data access.
+    • It is a programming technique that maps the object to the data stored in the database automatically. 
+    • The ORM tool internally uses the JDBC API to interact with the database.
+----------------------------------------------------------------------------------------------------------------
+ What is use of @Transactional? Why it should be used on service layer?
+    • Generally, the @Transactional annotation is written at the service level. 
+    • It is used to combine more than one writes on a database as a single atomic operation. 
+    When somebody call the method annotated with @Transactional all or none of the writes on the database is executed.
+--------------------------------------------------------------------------------------------------------
+session :
+
+it is a object used to get physical connection with database.
+session objects are lightweight and designed as it instanciated on each demand.   
+session objects are used to save and retrive the persistent object.   
+--------------------------------------------------------------------------------------------------
+How can we call stored procedure in hibernate? 
+ans:
+using createSQLQuery();
+------------------------------------------------------------------------------------------------
+what is sessionFactory?
+ans:
+it is a session object provider.
+we can create session object using 1.openSession() 2.getCurrentSession()
+it is singleTone,threadsafe,1 instance/app
+it is vey heavy object so, we initialize it only once at the beginning.
+
+openSession() : create new session object each time.
+getCurrentSession() : first check whether it is already created or not.
+if already created then it will refer to the already created session object. 
+----------------------------------------------------------------------------------------------------------------
+get                                         vs                             load
+
+used to fetch data from database                              used to fetch data from database from given id.
+from given id
+
+it will return null object,if object                          it will throw notfound exception if object not found.
+not found.
+
+loading policy is eager                                       loading policy is lazy
+(load at the time on class loading)                            (load on the first request)
+
+if u r not sure about object existence                         if u r sure about object existence 
+then use get().                                                then use load()
+
+
+-------------------------------------------------------------------------------------------------
+save                                    vs                                         persist
+
+used to store the object                                    used to store the object
+
+it can be used in transaction boundary                      it can be used only inside the transaction boundary.
+as well as outside the boundary.
+
+it will return id and return type                            it doest not return aything and return type is void.
+is serializable.
+
+this is suported by hibernate                                supported by JPA
+
+it will create row for detached                              it will throw persistence exception for detached object.  
+object.
+
+===============================================================================================================================================
+what is DI?
+ans:
+  to make dependecies available to dependent object.
+  basically we use Pom.xml to make depencies available for class.
+  
+  types :
+  a.setter based
+  b.constructor based
+  
+  according to condition we choose type
+  1.setter based : 
+  for partial dependecy we use setter based.
+  suppose i want to 1 or 2 parameters as dependency then setter based would be good choice.
+  it doesnt check for circular dependencies. 
+  it should be used for optional depencies.
+  
+  2.constructor based : 
+  in this type we cant do partial dependecy  .//full dependency
+  when all parameters needed as dependecies then this type would be good choice. 
+  in this type order of dependencies should be remeber.
+  it doesnt allowed circular dependencies.
+  it should be used for mandatory dependecies.
+  
+  
+  spring framework uses setter based DI.
+  
+-------------------------------------------------------------------------------------------------------------------------------------------  
+what is IOC
+
+it is mechnism used to make loose coupling of dependencies.
+-------------------------------------------------------------------------------------------------
+spring                                                vs                                             SpringBoot
+
+1.widely used framework for EE applications                                1.Springboot framework used for REST API's
+
+2.Most imp feature is DI                                                               2.Autoconfiguration
+
+3.It is used to build loosely coupled app                                         3.used for standalone application 
+
+4.explicite server                                                      	               4.embedded server
+
+5.deployments descripter required                                                  5. Not required
+
+6.slower than boot in deployment                                           6.faster for deployment as it used embedded server
+
+7.lots of boilerplate code in pom.xml                                      7.Boileplate code drastaclly reduced.
+--------------------------------------------------------------------------------------------------------------------------                    
+
+Spring MVC
+
+1. model view controller based spring framework.
+
+2.deployment descriptor required
+
+3.no DI concept
+
+4.takes more time than above 2
+
+5.require to build config. manually
+---------------------------------------------------------------
+Spring bean lifeCycle:
+
+Spring beans are java classes that are managed by Spring
+container and the bean life-cycle is also managed by Spring container.
+
+The bean life-cycle has below steps:
+
+1.bean instanciation
+2.dependencies injection for bean
+3.create init method 
+4.use utility class methods
+5.create destroy method.
+----------------------------------------
+bean scope:
+
+1.singleton (default scope of bean)
+
+
+in this scope we create single instance of bean and same instace will be shared on each demand. 
+its default loading policy is eager // we can make is lazy by using lazy-init=true
+this is stateless
+destroys method invoked automatically
+---------------------
+2.prototype
+
+in this type we create seperate new instace of bean on each demand.
+its default fetching policy is lazy.
+this is statefull
+destroy method doesnt invoked automatically
+-----------------------
+3.request
+This scopes a bean definition to an HTTP request. 
+
+4.session
+This scopes a bean definition to an HTTP session. 
+
+5.global-session
+This scopes a bean definition to a global HTTP session. 
+---------------------------------------
+REST pros/cons:
+
+pros : structured layer,faster,cachebale,simple,better scalability,uniform interface,supports JSON and XML,plain-test
+
+cons : not secured,stateless
+-------------------------------------
+HTTP status Code:
+100 : information response 
+200 : ok success
+300 : Redirection 
+400 : client side error
+500 : server side error
+
+----------------------------------
+HTTP methos 
+
+GET: to retrieve info from server.
+POST: to submit the data to the server from client.
+PUT:  to update the data on the server
+DELETE: to delete the data from server
+PATCH: to partial update 
+------------------------------------
+@GetMapping :                 
+
+used at method level
+------------------------------
+@requestMapping:
+
+used to serve the http request.
+can be used at class level,method level
+
+----------------------------
+@pathVariable:
+
+to extract the parameter from URI
+---------------------------------
+REST architecture :
+
+
+
+
+-----------------------------
+
+
+1. What do you understand by RESTful Web Services?
+ans:
+RESTful web services are built to work best on the Web. 
+Representational State Transfer (REST) is an architectural style that specifies constraints
+such as the uniform interface, 
+
+In the REST architectural style, data and functionality are considered resources and are accessed using Uniform Resource Identifiers (URIs).
+--------------------------------------------------------------------
+2. What is a REST Resource?
+ans:
+The target of an HTTP request is called a "resource".
+
+resource in rest api is similar to object in oops....
+so basically resource is object with a type , associated relationships and some data.
+-------------------------------------------------------------------
+3. What is URI?
+ans: 
+          URI                               vs                                       URL
+1.unofrom resource identifier.                                       1.uniform resource locator.
+
+2.URI contains two subsets, URN                                     2.URL is the subset of URI which tells the location
+which tell the name and URL which tells the location.
+
+3.The URI scheme can be protocol, designation, specification,         3.The scheme of URL is usually a protocol such as HTTP, HTTPS, FTP
+ or anything.
+---------------------------------------------------------------
+4. What are the features of RESTful Web Services?
+ans:
+1. It is stateless
+2. It supports JSON and XML
+3. It is simple than SOAP
+4. Documentation
+5. Error messages
+6.layered architecture
+7.cacheable.
+--------------------------------------------------------------
+5. What is the concept of statelessness in REST?
+ans:
+Statelessness means that every HTTP request happens in complete isolation. 
+
+The server never relies on information from previous requests from the client.
+---------------------------------------------------------------------------------
+What is REST API ?
+ans: Representational State Transfer which is a architectural style used to manage web services.
+--------------------------------------------------------
+11. Differentiate between SOAP and REST?
+ans:
+             SOAP                                                                   REST
+1. Simple Object Access Protocol                                       1.Representational State Transfer.
+
+2.soap is a protocol                                                             2.it is an architectural style.
+
+3.SOAP can use REST bcoz its protocol.                            3.REST cant use SOAP bcoz REST can use protocols like http,https.
+
+4.SOAP is uses interface to expose business logic.                4.REST uses URI to expose business logic.
+
+5.soap require more bandwidth.                                         5.REST require less BW.
+
+6.SOAP defines its own security                                        6.REST inherits security from underlying transport. 
+
+7.it allows XML only for data format                                 7.REST permits XML,JSON,plain-text,HTML. etc
+
+8.less preferred than REST                                                  8.it is more preferred than SOAP
+----------------------------------------------------------------------------------------------------------------------------
+1. What is Spring Framework?
+ans:
+Spring is a lightweight framework. 
+It can be thought of as a framework of frameworks because it provides support to various frameworks such as Struts, Hibernate, Tapestry, EJB, JSF, etc. 
+The framework, in broader sense, can be defined as a structure where we find solution of the various technical problems.
+
+The Spring framework comprises several modules such as IOC, AOP, DAO, ORM, WEB MVC etc. 
+
+-------------------------------------------------------------------------
+2. What are the features of Spring Framework?
+ans:
+1.lightweight
+2.AOP
+3.Container
+4.DI
+5.transaction management
+6.integreation with other framework
+--------------------------------------------------
+3. What is a Spring configuration file?
+ans:
+Spring configuration file is a file with . xml extension and the file contains information about the classes and interfaces and their dependencies. 
+---------------------------------------------------------
+4. What do you mean by IoC (Inversion of Control) Container?
+ans:
+These are the design patterns that are used to remove dependency from the programming code. 
+They make the code easier to test and maintain.
+
+Thus, IOC makes the code loosely coupled. In such case, there is no need to modify the code if our logic is moved to new environment.
+
+In Spring framework, IOC container is responsible to inject the dependency. 
+We provide metadata to the IOC container either by XML file or annotation.
+-----------------------------------------------------------
+11. What do you understand by Bean Wiring.
+ans:
+Bean wiring means creating associations between application components //i.e. beans within the spring container.
+---------------------------------------------------------------------
+13. What are the limitations of autowiring?
+ans:
+    Autowiring is less exact than explicit wiring. ...
+    
+    Wiring information may not be available to tools that generate documentation from a Spring container.
+    
+---------------------------------------------------------------------------
+14. What do you understand by the term ‘Spring Boot’?
+ans:
+Spring Boot is a Framework used for java EE.
+it is used to build standalone applications.
+it gives autoconfiguration production ready code.
+it provides embedded server for faster deployment.
+-----------------------------------------------------------------------------------------------------
+15. Explain the advantages of using Spring Boot for application development.
+ans:
+    Fast and easy development of Spring-based applications;
+    No need for the deployment of war files;
+    The ability to create standalone applications;
+    Helping to directly embed Tomcat, Jetty, or Undertow into an application;
+    No need for XML configuration;
+    Reduced amounts of source code;
+----------------------------------------------------------------------------------------------------------
+17. What are the features of Spring Boot?
+ans:
+1.autoconfiguration
+2.embedde server
+3.reduction of boiler plate code.
+4.no-need of xml cong.
+----------------------------------------------------------------------------------------------------------
+18. What does @SpringBootApplication annotation do internally?
+ans:
+We use this annotation to mark the main class of a Spring Boot application.
+where our application starts.
+ @SpringBootApplication = @enableAutoConfiguration + @Configuration+ @componentScan
+ 
+ @EnableAutoConfiguration : used to enable autoConfiguration features of Spring
+ @Configuration : used to enable java features.
+ @componentScan : used to implicit scanning of spring bean by spring Container.
+--------------------------------------------------------------------------------------
+19. What are the effects of running Spring Boot Application as “Java Application”?
+ans:
+it will configure automatically based on dependencies u have added by using @EnableAutoConfiguration annotation.
+------------------------------------------------------------------------------------------------
+20. What is Spring Boot dependency management system?
+ans:
+Spring Boot dependency management is used to manage dependencies and configuration
+automatically without you specifying the version for any of that dependencies.
+------------------------------------------------------------------------
+21. What are the possible sources of external configuration?
+ans:
+using command line argument by set the environmental variable
+------------------------------------------------------------------------
+22. Can we change the default port of the embedded Tomcat server in Spring boot?
+ans:
+yes
+
+in application.properties using server.port:7070
+--------------------------------------------------------------------------
+23. Can you tell how to exclude any package without using the basePackages filter?
+ans:
+<context:component-scan base-package="com.example">
+    <context:exclude-filter type="regex" expression="com\.example\.ignore\..*"/>
+ </context:component-scan>
+--------------------------------------------------------------------------------------
+24. How to disable specific auto-configuration class?
+ans:
+@EnableAutoConfiguration(exclude=DataSourceAutoConfiguration.class) 
+public class ApplicationConfiguration { 
+   ... 
+} 
+------------------------------------------------------------------------------
+25. Can the default web server in the Spring Boot application be disabled?
+ans:
+Yes, we can use application.properties to configure the web application type i.e spring.main.web-application-type=none.
+------------------------------------------------------------------------------
+26. What are the uses of @RequestMapping and @RestController annotations in Spring Boot?
+ans:
+@requestMapping : is used to serve HTTP requests like get,put,post
+
+@Restcontroller : @controller+@responseBody
+--------------------------------------------------------------------------
+What is Spring Actuator? What are its advantages?
+
+An actuator is an additional feature of Spring that helps you to monitor and manage your application when you push it to production. 
+These actuators include auditing, health, CPU usage, HTTP hits, and metric gathering, and many more that are automatically applied to your application.
+--------------------------------------------------------------------------------------------------------------
+How to enable Actuator in Spring boot application?
+ans:
+To enable the spring actuator feature, we need to add the dependency of “spring-boot-starter-actuator” in pom.xml.
+
+<dependency>
+<groupId> org.springframework.boot</groupId>
+<artifactId> spring-boot-starter-actuator </artifactId>
+</dependency>
+-----------------------------------------------------------------
+Q.exception handling in REST ?
+ans:
+@ControllerAdvice :class level 
+@ExceptionHandler :method level
+----------------------------------------------------------------
+get                              vs                               post
+
+
+    GET requests can be cached
+    GET requests remain in the browser history
+    GET requests can be bookmarked
+    GET requests should never be used when dealing with sensitive data
+    GET requests have length restrictions
+    GET requests are only used to request data (not modify)
+
+
+    POST requests are never cached
+    POST requests do not remain in the browser history
+    POST requests cannot be bookmarked
+    POST requests have no restrictions on data length
+    POST request is used to store the data on server.
+
+==================================================================
+Spring MVC
+==================================================================
+36. What is the Spring MVC framework?
+ans:
+Spring MVC is a Java framework that is used to develop web applications. 
+It is built on a Model-View-Controller (MVC) pattern and possesses all the basic features of a spring framework,
+such as Dependency Injection, Inversion of Control.
+-----------------------------------------------------------------------------------------------------------
+37. What are the benefits of Spring MVC framework over other MVC frameworks?
+ans:
+
+Spring provides an integrated framework for all tiers of your application. 
+
+Spring provides a very clean separation between controllers, JavaBean models, and views.
+
+Clear separation of roles – There is a specialised dedicated object for every role. 
+
+Spring MVC supports customizable handler mapping and view resolution too.
+
+Spring MVC framework provides customizable binding and validation.
+---------------------------------------------------------------------------------------------------------------
+38. What is DispatcherServlet in Spring MVC? In other words, can you explain the Spring MVC architecture?
+ans:
+DispatcherServlet : its a cetral servlet.who manages requeast and response.
+https://www.interviewbit.com/spring-interview-questions/    Q.38
+----------------------------------------------------------------------------------------------------
+39. What is a View Resolver pattern and explain its significance in Spring MVC?
+ans:
+view resolver is responsible for translation of logical view name to actual view name
+---------------------------------------------------------------------------------
+
+40. What is the @Controller annotation used for?
+ans: to define controller
+
+---------------------------------------------------------------------------------
+
+41. Can you create a controller without using @Controller or @RestController annotations?
+ans:
+yes, using @component
+----------------------------------------------------
+42. What is ContextLoaderListener and what does it do?
+ans:
+it is the root of our spring MVC project.
+The ContextLoaderListener loads and creates the ApplicationContext,
+so a developer need not write explicit code to do create it. 
+In short, it is a listener that aids to bootstrap Spring MVC.
+-----------------------------------------------------------------
+43. What are the differences between @RequestParam and @PathVariable annotations?
+ans:
+The @RequestParam is used to extract query parameters that is anything after “?” in the URL.
+The @PathVariable is used to extract the data present as part of the URI itself.]
+-------------------------------------------------------------------------
+44. What is the Model in Spring MVC?
+ans:
+it is the reference of the having data, which is used to render the data on view layer.
+----------------------------------------------------------------------------
+45. What is the use of @Autowired annotation?
+ans:
+ annotation is meant for the injection of a bean by means of its type along with methods and fields. 
+ This helps the Spring framework to resolve dependencies by injecting and collaborating the beans into another bean. 
+-----------------------------------------------------------------------------------
+46. What is the role of @ModelAttribute annotation?
+ans:
+The annotation plays a very important role in binding method parameters to the respective attribute that corresponds to a model. Then it reflects the same on the presentation page. The role of the annotation also depends on what the developer is using that for. In case, it is used at the method level, then that method is responsible for adding attributes to it. When used at a parameter level, it represents that the parameter value is meant to be retrieved from the model layer.
+
+---------------------------------------------------------------
+47. What is the importance of the web.xml in Spring MVC?
+ans:
+this is the deployement descripter of our application.
+it contains servlet definitin, mapping of beans,filters,lifecycle listners etc.
+It is also used for configuring the ContextLoaderListener.
+-------------------------------------------------------------
+48. What are the types of Spring MVC Dependency Injection?
+----------------------------------------------------------------
+
+AOP :
+
+Seperation of business logic from cross cutting concerns such as transaction management, authentication, logging etc
+
+----------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
