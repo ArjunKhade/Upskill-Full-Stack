@@ -1,0 +1,46 @@
+Focus on what is strong
+Be expert
+
+Rxjs Operators
+-forkJoin → combine multiple api calls result (admin dashboard) ✅
+-switchMap → cancel previous request and only keep the latest one(search ,autocomplete)✅
+-mergeMap → run multiple requests in parallel.(Upload multiple files)✅
+-concatMap → execute requests one after another in order.(Multi-step form submission)✅
+-exhaustMap → Ignore new requests while current request is running.(form submissions).✅
+-of → Creates an Observable from given values and emits them immediately.✅
+-from → Converts arrays, promises, or iterables into an Observable and emits items one by one.✅
+-interval → Emits values continuously at a specified time interval.✅
+-timer → Emits a value after a delay, optionally continuing at intervals.✅
+-tap → is used for side effects such as logging, analytics tracking, showing/hiding loaders, or   debugging. It does not modify the emitted value.✅
+-map→ used to transform emitted values into another format.✅
+-filter→ allows only values that satisfy a condition.✅
+-take→ emits only the first n values from an Observable and then automatically completes.✅
+-takeUntil → is used to automatically unsubscribe from an Observable when another Observable emits a value. In Angular, it is commonly used to clean up subscriptions when a component is destroyed and to prevent memory leaks.✅
+-shareReplay→ is used to share a single Observable execution among multiple subscribers and cache the latest emitted value.✅
+-debounceTime() → waits for a pause in emissions before emitting the latest value.✅
+-combineLatest() → combines the latest values from multiple Observables and emits whenever any source emits after all have emitted at least once.✅
+
+#Observables - A stream of data that emits values over time. ✅
+#Subject - has no default value, if component not loaded then did not receive value ✅
+#BehaviourSubject - has default value, remember last emit value ✅
+
+#Ngrx - reactive state for angular, global state ✅
+#Todo- App ✅
+#Angular forms - template form, reactive form , form array,  custom validation, async validators
+#Promise ✅
+#Change detection in angular ✅
+#Dependency Injection ✅
+
+PWA 
+Component, Service, Guards, Pipe, Directive, Resolver
+Content projection - ngContent and ngTemplateOutlet 
+Ng template, Ng container
+Control flow statements
+validators sync and Async 
+Shallow and deep copy
+
+
+
+
+
+ 
