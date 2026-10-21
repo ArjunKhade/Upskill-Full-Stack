@@ -6,7 +6,7 @@
 
 ### Frontend Role
 
-My name is Arjun Khade. I am a Full Stack Developer with 3.5 years of experience, mainly working with Angular, TypeScript, Java, and Spring Boot.
+My name is Arjun Khade. I am a Full Stack Developer with 3.9 years of experience, mainly working with Angular, TypeScript, Java, and Spring Boot.
 
 Currently, I am working at Aloha Technology, where I develop and maintain enterprise web applications. My work includes developing reusable UI components, building reactive forms, integrating REST APIs, implementing responsive designs, and improving application performance.
 
