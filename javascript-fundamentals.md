@@ -19,6 +19,7 @@ A reference guide covering core JavaScript execution concepts: synchronous vs as
 - [Parameters vs Arguments](#parameters-vs-arguments)
 - [First-Class Functions](#first-class-functions)
 - [Higher Order Functions](#higher-order-functions)
+- [call(), apply(), and bind() Methods](#call-apply-and-bind-methods)
 - [Event Loop, Microtask & Macrotask Queue](#event-loop-microtask--macrotask-queue)
 - [Shallow Copy vs Deep Copy](#shallow-copy-vs-deep-copy-in-javascript)
 - [ES6 Features (ECMAScript 2015)](#es6-features-ecmascript-2015)
@@ -608,6 +609,155 @@ Array.prototype.calculate = function(logic){
 
 console.log(radius.calculate(area));
 console.log(radius.map(area)); // polyfill for map function in javascript
+```
+
+[↑ Back to Table of Contents](#table-of-contents)
+
+---
+
+## call(), apply(), and bind() Methods
+
+In JavaScript, the `this` keyword refers to the object executing the current function. `call`, `apply`, and `bind` are built-in methods on `Function.prototype` that allow developers to **explicitly control, set, or override the `this` context** (known as *explicit binding*) and borrow methods between objects.
+
+```
++-----------+------------------------------------+--------------------------+---------------------------+
+| Method    | Invocation                         | Arguments                | Return Value              |
++-----------+------------------------------------+--------------------------+---------------------------+
+| call()    | Invokes immediately                | Comma-separated list     | Result of the function    |
++-----------+------------------------------------+--------------------------+---------------------------+
+| apply()   | Invokes immediately                | Single Array / Iterable  | Result of the function    |
++-----------+------------------------------------+--------------------------+---------------------------+
+| bind()    | Does NOT invoke (deferred)         | Comma-separated list     | A NEW bound function      |
++-----------+------------------------------------+--------------------------+---------------------------+
+```
+
+---
+
+### 1. `call()` Method
+
+- **What it does:** Invokes the function immediately with a specified `this` context and arguments passed **individually (comma-separated)**.
+- **Syntax:** `fn.call(thisArg, arg1, arg2, ...)`
+
+```js
+const person1 = {
+  firstName: "Arjun",
+  lastName: "Khade"
+};
+
+const person2 = {
+  firstName: "Rahul",
+  lastName: "Sharma"
+};
+
+function printFullName(hometown, state) {
+  console.log(`${this.firstName} ${this.lastName} from ${hometown}, ${state}`);
+}
+
+// Method borrowing using call:
+printFullName.call(person1, "Pune", "Maharashtra");   // "Arjun Khade from Pune, Maharashtra"
+printFullName.call(person2, "Mumbai", "Maharashtra"); // "Rahul Sharma from Mumbai, Maharashtra"
+```
+
+---
+
+### 2. `apply()` Method
+
+- **What it does:** Exactly the same as `call()`, except that function arguments are passed as a **single array** (or array-like object).
+- **Syntax:** `fn.apply(thisArg, [arg1, arg2, ...])`
+
+> **Memory Trick:**
+> - **C**all $\to$ **C**omma-separated
+> - **A**pply $\to$ **A**rray
+
+```js
+// Passing arguments as an array:
+printFullName.apply(person1, ["Pune", "Maharashtra"]); // "Arjun Khade from Pune, Maharashtra"
+
+// Practical Classic Use Case: Finding max/min in an array without the spread operator
+const numbers = [5, 12, 8, 130, 44];
+const max = Math.max.apply(null, numbers);
+console.log(max); // 130
+```
+
+---
+
+### 3. `bind()` Method
+
+- **What it does:** Does **not** invoke the function immediately. Instead, it returns a **brand-new copy of the function** with its `this` context permanently bound to the specified object.
+- **Syntax:** `const boundFn = fn.bind(thisArg, arg1, arg2, ...)`
+
+```js
+// Creates a new function permanently bound to person1:
+const printArjunDetails = printFullName.bind(person1, "Pune", "Maharashtra");
+
+// Can be executed anywhere, anytime:
+printArjunDetails(); // "Arjun Khade from Pune, Maharashtra"
+```
+
+#### Key Use Cases for `bind()`:
+
+1. **Preserving `this` in Asynchronous Callbacks & Event Listeners:**
+   ```js
+   const user = {
+     name: "Arjun",
+     greet() {
+       console.log(`Hello, ${this.name}!`);
+     }
+   };
+
+   // Problem: Losing 'this' in setTimeout:
+   setTimeout(user.greet, 100); // "Hello, undefined!" (this points to window/timeout object)
+
+   // Solution using bind:
+   setTimeout(user.greet.bind(user), 100); // "Hello, Arjun!"
+   ```
+
+2. **Function Currying / Partial Application:**
+   Pre-filling specific parameters in advance:
+   ```js
+   function multiply(a, b) {
+     return a * b;
+   }
+
+   const multiplyByTwo = multiply.bind(null, 2);
+   console.log(multiplyByTwo(5));  // 10
+   console.log(multiplyByTwo(10)); // 20
+   ```
+
+---
+
+### 4. Comparison Table: `call` vs `apply` vs `bind`
+
+| Feature | `call()` | `apply()` | `bind()` |
+|---|---|---|---|
+| **Execution** | Immediate | Immediate | Deferred (executed later on demand) |
+| **Argument Passing** | `fn.call(obj, a, b)` | `fn.apply(obj, [a, b])` | `fn.bind(obj, a, b)` |
+| **Return Value** | Return value of function | Return value of function | Brand-new bound function |
+| **Common Use Cases** | Method borrowing | Array-based arguments, math operations | Event listeners, timers, function currying |
+
+---
+
+### 5. Interview Classic: Polyfill for `bind()`
+
+Interviewers frequently ask candidates to write a custom implementation of `bind` from scratch:
+
+```js
+Function.prototype.myBind = function (context, ...args) {
+  const originalFunc = this; // 'this' refers to the function calling myBind
+
+  if (typeof originalFunc !== "function") {
+    throw new TypeError("myBind must be called on a function");
+  }
+
+  return function (...newArgs) {
+    // Combine pre-filled arguments from myBind with newly passed arguments:
+    return originalFunc.apply(context, [...args, ...newArgs]);
+  };
+};
+
+// Testing the custom polyfill:
+const customBound = printFullName.myBind(person1, "Pune");
+customBound("Maharashtra"); // "Arjun Khade from Pune, Maharashtra"
 ```
 
 [↑ Back to Table of Contents](#table-of-contents)

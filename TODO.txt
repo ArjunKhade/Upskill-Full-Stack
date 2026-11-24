@@ -37,7 +37,6 @@ Content projection - ngContent and ngTemplateOutlet
 Ng template, Ng container
 Control flow statements
 validators sync and Async 
-Shallow and deep copy
 
 
 
